@@ -1,0 +1,24 @@
+<form [formGroup]="stockForm" (ngSubmit)="onSubmit()">
+  <h2>Cadastro de Stock</h2>
+
+  <div class="form-group">
+    <label for="idWatch">ID Relógio</label>
+    <input formControlName="idWatch" type="text" id="idWatch" placeholder="Digite o ID do Relógio">
+    <div *ngIf="stockForm.get('idWatch')?.invalid && (stockForm.get('idWatch')?.touched || stockForm.get('idWatch')?.dirty)">
+      <small *ngIf="stockForm.get('idWatch')?.errors?.['required']">O código é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="quantity">Quantidade</label>
+    <input formControlName="quantity" type="number" id="quantity" placeholder="Digite a quantidade">
+    <div *ngIf="stockForm.get('quantity')?.invalid && (stockForm.get('quantity')?.touched || stockForm.get('quantity')?.dirty)">
+      <small *ngIf="stockForm.get('quantity')?.errors?.['required']">A quantidade é obrigatória.</small>
+      <small *ngIf="stockForm.get('quantity')?.errors?.['min']">A quantidade deve ser maior que 0.</small>
+    </div>
+  </div>
+
+  <input type="submit" [value]="buttonName" [disabled]="stockForm.invalid">
+  <button [routerLink]="['/stock']">Cancelar</button>
+</form>
+

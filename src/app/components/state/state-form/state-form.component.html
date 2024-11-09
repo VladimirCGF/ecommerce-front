@@ -1,0 +1,26 @@
+<form [formGroup]="stateForm" (ngSubmit)="onSubmit()">
+  <h2>Cadastro de Cupom</h2>
+
+  <div class="form-group">
+    <label for="abbreviations">Sigla</label>
+    <input formControlName="abbreviations" type="text" id="abbreviations" placeholder="Digite a sigla" (blur)="checkCodeAvailabilityAbbreviations()">
+
+    <div *ngIf="stateForm.get('abbreviations')?.invalid && (stateForm.get('abbreviations')?.touched || stateForm.get('abbreviations')?.dirty)">
+      <small *ngIf="stateForm.get('abbreviations')?.errors?.['required']">A sigla é obrigatório.</small>
+      <small *ngIf="stateForm.get('abbreviations')?.errors?.['codeTaken']">Esta sigla já existe.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="name">Nome</label>
+    <input formControlName="name" type="text" id="name" placeholder="Digite o nome" (blur)="checkCodeAvailabilityName()">
+    <div *ngIf="stateForm.get('name')?.invalid && (stateForm.get('name')?.touched || stateForm.get('name')?.dirty)">
+      <small *ngIf="stateForm.get('name')?.errors?.['required']">O nome é obrigatório.</small>
+      <small *ngIf="stateForm.get('name')?.errors?.['codeTaken']">Este nome já existe.</small>
+    </div>
+  </div>
+
+  <input type="submit" [value]="buttonName" [disabled]="stateForm.invalid">
+  <button [routerLink]="['/states']">Cancelar</button>
+</form>
+

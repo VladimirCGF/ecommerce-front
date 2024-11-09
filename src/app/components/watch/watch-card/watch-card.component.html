@@ -1,0 +1,40 @@
+<mat-card *ngIf="watch" class="watch-card">
+
+  <mat-card-content class="watch-card-content">
+    <div *ngIf="watch.imageUrls && watch.imageUrls.length > 0; else noImages" class="image-container">
+      <button mat-icon-button (click)="previousImage()" [disabled]="currentIndex === 0" class="nav-button prev-button">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <img
+        mat-card-image
+        [src]="'http://localhost:8080/api/watches/image/' + watch.imageUrls[currentIndex].split('/').pop()"
+        [alt]="'Imagem ' + (currentIndex + 1) + ' do relógio ' + watch.name"
+        class="watch-image"
+      >
+
+      <button mat-icon-button (click)="nextImage()" [disabled]="currentIndex === watch.imageUrls.length - 1" class="nav-button next-button">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+    <ng-template #noImages>
+      <p class="no-images-text">Sem imagens disponíveis</p>
+    </ng-template>
+
+    <mat-card-header class="watch-card-header">
+      <mat-card-title>{{ watch.name }}</mat-card-title>
+      <mat-card-subtitle class="watch-price">R$ {{ watch.price }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <!-- Formulário para upload de imagem -->
+    <button mat-raised-button color="primary" (click)="fileInput.click()">Adicionar Imagem</button>
+    <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileSelected($event)">
+
+  </mat-card-content>
+</mat-card>
+
+
+
+
+
+

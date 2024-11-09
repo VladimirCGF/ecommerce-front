@@ -1,0 +1,62 @@
+<form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+  <h2>Cadastro de Cliente</h2>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input formControlName="email" type="text" id="email" placeholder="Digite o email" (blur)="checkEmailAvailability()">
+    <div
+      *ngIf="clientForm.get('email')?.invalid && (clientForm.get('email')?.touched || clientForm.get('email')?.dirty)">
+      <small *ngIf="clientForm.get('email')?.errors?.['required']">O email é obrigatório.</small>
+      <small *ngIf="clientForm.get('email')?.errors?.['codeTaken']">Este email já existe.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input formControlName="password" type="password" id="password" placeholder="Digite o password">
+    <div
+      *ngIf="clientForm.get('password')?.invalid && (clientForm.get('password')?.touched || clientForm.get('password')?.dirty)">
+      <small *ngIf="clientForm.get('password')?.errors?.['required']">A senha obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword">Confirm Password</label>
+    <input formControlName="confirmPassword" type="password" id="confirmPassword" placeholder="Confirme sua senha">
+    <div
+      *ngIf="clientForm.errors?.['passwordMismatch'] && (clientForm.get('confirmPassword')?.touched || clientForm.get('confirmPassword')?.dirty)">
+      <small>As senhas não correspondem.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="firstName">Nome</label>
+    <input formControlName="firstName" type="text" id="firstName" placeholder="Digite o nome">
+    <div
+      *ngIf="clientForm.get('firstName')?.invalid && (clientForm.get('firstName')?.touched || clientForm.get('firstName')?.dirty)">
+      <small *ngIf="clientForm.get('firstName')?.errors?.['required']">O nome é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Sobrenome</label>
+    <input formControlName="lastName" type="text" id="lastName" placeholder="Digite o sobrenome">
+    <div
+      *ngIf="clientForm.get('lastName')?.invalid && (clientForm.get('lastName')?.touched || clientForm.get('lastName')?.dirty)">
+      <small *ngIf="clientForm.get('lastName')?.errors?.['required']">O sobrenome é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cpf">CPF</label>
+    <input formControlName="cpf" type="text" id="cpf" placeholder="Digite o CPF">
+    <div
+      *ngIf="clientForm.get('cpf')?.invalid && (clientForm.get('cpf')?.touched || clientForm.get('cpf')?.dirty)">
+      <small *ngIf="clientForm.get('cpf')?.errors?.['required']">O CPF é obrigatório.</small>
+      <small *ngIf="clientForm.get('cpf')?.errors?.['codeTaken']">O CPF já esta em uso.</small>
+    </div>
+  </div>
+
+  <input type="submit" [value]="buttonName" [disabled]="clientForm.invalid">
+  <button [routerLink]="['/client']">Cancelar</button>
+</form>

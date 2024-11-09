@@ -1,0 +1,58 @@
+<nav class="navbar">
+  <button [routerLink]="['/home']">Início</button>
+  <div class="search-bar">
+    <mat-form-field appearance="outline" class="full-width">
+      <input matInput placeholder="Buscar Estados" (keyup)="applyFilter($event)" />
+    </mat-form-field>
+  </div>
+</nav>
+
+
+<div class="title">
+  <h1>Lista de Estados</h1>
+</div>
+<div class="div-cadastro">
+  <button [routerLink]="['/states/create']" class="mr-1" mat-flat-button>Cadastrar</button>
+</div>
+
+<div class="table-center">
+  <div class="mat-elevation-z8  table-with">
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> No.</th>
+        <td mat-cell *matCellDef="let element"> {{ element.id }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nome</th>
+        <td mat-cell *matCellDef="let element"> {{ element.name }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="abbreviations">
+        <th class="text-center" mat-header-cell *matHeaderCellDef> Sigla</th>
+        <td class="text-center" mat-cell *matCellDef="let element"> {{ element.abbreviations }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="options">
+        <th class="text-center" mat-header-cell *matHeaderCellDef> Options</th>
+        <td class="text-center" mat-cell *matCellDef="let element">
+          <button [routerLink]="['/states/update', element.id]" class="mr-1" mat-flat-button>Edit</button>
+          <button (click)="onDelete(element.id)" color="warn" mat-flat-button>Delete</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
+</div>

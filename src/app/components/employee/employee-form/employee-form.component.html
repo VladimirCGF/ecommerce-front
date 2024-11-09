@@ -1,0 +1,53 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+  <h2>Cadastro de Funcionários</h2>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input formControlName="email" type="text" id="email" placeholder="Digite o email" (blur)="checkEmailAvailability()">
+    <div
+      *ngIf="employeeForm.get('email')?.invalid && (employeeForm.get('email')?.touched || employeeForm.get('email')?.dirty)">
+      <small *ngIf="employeeForm.get('email')?.errors?.['required']">O email é obrigatório.</small>
+      <small *ngIf="employeeForm.get('email')?.errors?.['codeTaken']">Este email já existe.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input formControlName="password" type="password" id="password" placeholder="Digite o password">
+    <div
+      *ngIf="employeeForm.get('password')?.invalid && (employeeForm.get('password')?.touched || employeeForm.get('password')?.dirty)">
+      <small *ngIf="employeeForm.get('password')?.errors?.['required']">A senha obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword">Confirm Password</label>
+    <input formControlName="confirmPassword" type="password" id="confirmPassword" placeholder="Confirme sua senha">
+    <div
+      *ngIf="employeeForm.errors?.['passwordMismatch'] && (employeeForm.get('confirmPassword')?.touched || employeeForm.get('confirmPassword')?.dirty)">
+      <small>As senhas não correspondem.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="firstName">Nome</label>
+    <input formControlName="firstName" type="text" id="firstName" placeholder="Digite o nome">
+    <div
+      *ngIf="employeeForm.get('firstName')?.invalid && (employeeForm.get('firstName')?.touched || employeeForm.get('firstName')?.dirty)">
+      <small *ngIf="employeeForm.get('firstName')?.errors?.['required']">O nome é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Sobrenome</label>
+    <input formControlName="lastName" type="text" id="lastName" placeholder="Digite o sobrenome">
+    <div
+      *ngIf="employeeForm.get('lastName')?.invalid && (employeeForm.get('lastName')?.touched || employeeForm.get('lastName')?.dirty)">
+      <small *ngIf="employeeForm.get('lastName')?.errors?.['required']">O sobrenome é obrigatório.</small>
+    </div>
+  </div>
+
+  <input type="submit" [value]="buttonName" [disabled]="employeeForm.invalid">
+  <button [routerLink]="['/employee']">Cancelar</button>
+</form>
+

@@ -1,0 +1,81 @@
+<nav class="navbar">
+  <button [routerLink]="['/home']">Início</button>
+  <div class="search-bar">
+    <mat-form-field appearance="outline" class="full-width">
+      <input matInput placeholder="Buscar Pagamentos" (keyup)="applyFilter($event)" />
+    </mat-form-field>
+  </div>
+</nav>
+
+<div class="title">
+  <h1>Lista de Pagamentos</h1>
+</div>
+<div class="div-cadastro">
+  <button [routerLink]="['/payment/create']" class="mr-1" mat-flat-button>Cadastrar</button>
+
+</div>
+
+<div class="table-center">
+  <div class="mat-elevation-z8  table-with">
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> No.</th>
+        <td mat-cell *matCellDef="let element"> {{ element.id }}</td>
+      </ng-container>
+
+      <!-- Total Price Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Preço</th>
+        <td mat-cell *matCellDef="let element"> {{ element.price }}</td>
+      </ng-container>
+
+      <!-- Order Date -->
+      <ng-container matColumnDef="paymentDateTime">
+        <th mat-header-cell *matHeaderCellDef> Data</th>
+        <td mat-cell *matCellDef="let element"> {{ element.paymentDateTime | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+      </ng-container>
+
+      <!-- Total Price Column -->
+      <ng-container matColumnDef="paymentMethod">
+        <th mat-header-cell *matHeaderCellDef> Método de Pagamento</th>
+        <td mat-cell *matCellDef="let element"> {{ element.paymentMethod }}</td>
+      </ng-container>
+
+      <!-- ID Client Column -->
+      <ng-container matColumnDef="paymentStatus">
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td mat-cell *matCellDef="let element"> {{ element.paymentStatus }}</td>
+      </ng-container>
+
+      <!-- ID Address Column -->
+      <ng-container matColumnDef="idOrders">
+        <th mat-header-cell *matHeaderCellDef> ID Pedidos</th>
+        <td mat-cell *matCellDef="let element"> {{ element.idOrders }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="options">
+        <th class="text-center" mat-header-cell *matHeaderCellDef> Options</th>
+        <td class="text-center" mat-cell *matCellDef="let element">
+          <button [routerLink]="['/payment/update', element.id]" class="mr-1" mat-flat-button>Edit</button>
+          <button (click)="onDelete(element.id)" color="warn" mat-flat-button>Delete</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
+</div>
+
+
+
+
+
