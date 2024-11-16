@@ -1,0 +1,36 @@
+<form [formGroup]="orderItemForm" (ngSubmit)="onSubmit()">
+  <h2>Cadastro de OrderItem</h2>
+
+  <div class="form-group">
+    <label for="idOrders">ID Order</label>
+    <input formControlName="idOrders" type="text" id="idOrders" placeholder="Digite o ID Order">
+
+    <div *ngIf="orderItemForm.get('idOrders')?.invalid && (orderItemForm.get('idOrders')?.touched || orderItemForm.get('idOrders')?.dirty)">
+      <small *ngIf="orderItemForm.get('idOrders')?.errors?.['required']">O ID Order é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="idWatch">ID Watch</label>
+    <input formControlName="idWatch" type="text" id="idWatch" placeholder="Digite o ID Watch">
+
+    <div *ngIf="orderItemForm.get('idWatch')?.invalid && (orderItemForm.get('idWatch')?.touched || orderItemForm.get('idWatch')?.dirty)">
+      <small *ngIf="orderItemForm.get('idWatch')?.errors?.['required']">O ID Watch é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="quantity">Quantidade</label>
+    <input formControlName="quantity" type="number" id="quantity" placeholder="Digite a quantidade">
+    <div *ngIf="orderItemForm.get('quantity')?.invalid && (orderItemForm.get('quantity')?.touched || orderItemForm.get('quantity')?.dirty)">
+      <small *ngIf="orderItemForm.get('quantity')?.errors?.['required']">A quantidade é obrigatória.</small>
+      <small *ngIf="orderItemForm.get('quantity')?.errors?.['min']">A quantidade deve ser maior que 0.</small>
+    </div>
+  </div>
+
+
+  <input type="submit" [value]="buttonName" [disabled]="orderItemForm.invalid">
+  <button [routerLink]="['/orderItem']">Cancelar</button>
+</form>
+
+

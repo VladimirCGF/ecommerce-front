@@ -1,0 +1,30 @@
+<form [formGroup]="municipalityForm" (ngSubmit)="onSubmit()">
+  <h2>Cadastro de Município</h2>
+
+  <div class="form-group">
+    <label for="idState">Estado</label>
+    <select formControlName="idState" id="idState" (change)="checkCodeAvailability()">
+      <option value="">Selecione um estado</option>
+      <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="name">Nome</label>
+    <input formControlName="name" type="text" id="name" placeholder="Digite o nome do município" (blur)="checkCodeAvailability()">
+    <div
+      *ngIf="municipalityForm.get('name')?.invalid && (municipalityForm.get('name')?.touched || municipalityForm.get('name')?.dirty)">
+      <small *ngIf="municipalityForm.get('name')?.errors?.['required']">O nome é obrigatório.</small>
+      <small *ngIf="municipalityForm.get('name')?.errors?.['codeTaken']">Este nome já existe neste estado.</small>
+    </div>
+  </div>
+
+  <input type="submit" [value]="buttonName" [disabled]="municipalityForm.invalid">
+  <button [routerLink]="['/municipality']">Cancelar</button>
+</form>
+
+
+
+
+
+

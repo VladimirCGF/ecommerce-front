@@ -1,0 +1,35 @@
+<form [formGroup]="couponForm" (ngSubmit)="onSubmit()">
+  <h2>Cadastro de Cupom</h2>
+
+  <div class="form-group">
+    <label for="code">Código</label>
+    <input formControlName="code" type="text" id="code" placeholder="Digite o código do cupom" (blur)="checkCodeAvailability()">
+
+    <div *ngIf="couponForm.get('code')?.invalid && (couponForm.get('code')?.touched || couponForm.get('code')?.dirty)">
+      <small *ngIf="couponForm.get('code')?.errors?.['required']">O código é obrigatório.</small>
+      <small *ngIf="couponForm.get('code')?.errors?.['codeTaken']">Este código já existe.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="discountPercentage">Porcentagem de Desconto</label>
+    <input formControlName="discountPercentage" type="number" id="discountPercentage" placeholder="Digite a porcentagem">
+    <div *ngIf="couponForm.get('discountPercentage')?.invalid && (couponForm.get('discountPercentage')?.touched || couponForm.get('discountPercentage')?.dirty)">
+      <small *ngIf="couponForm.get('discountPercentage')?.errors?.['required']">A porcentagem é obrigatória.</small>
+      <small *ngIf="couponForm.get('discountPercentage')?.errors?.['min']">A porcentagem deve ser maior que 0.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="validUntil">Válido Até</label>
+    <input formControlName="validUntil" type="date" id="validUntil">
+    <div *ngIf="couponForm.get('validUntil')?.invalid && (couponForm.get('validUntil')?.touched || couponForm.get('validUntil')?.dirty)">
+      <small *ngIf="couponForm.get('validUntil')?.errors?.['required']">A data é obrigatória.</small>
+    </div>
+  </div>
+
+  <input type="submit" [value]="buttonName" [disabled]="couponForm.invalid">
+  <button [routerLink]="['/coupon']">Cancelar</button>
+</form>
+
+

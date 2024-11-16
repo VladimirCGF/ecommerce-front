@@ -1,0 +1,31 @@
+<form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+  <h2>Cadastro de Pagamento</h2>
+
+  <div class="form-group">
+    <label for="paymentMethod">Método de Pagamento</label>
+    <select formControlName="paymentMethod" id="paymentMethod" class="form-control" required>
+      <option value="" disabled selected>Selecione o método de pagamento</option>
+      <option value="1">Cartão de crédito</option>
+      <option value="2">Cartão de débito</option>
+      <option value="3">Pix</option>
+    </select>
+    <div *ngIf="paymentForm.get('paymentMethod')?.invalid && (paymentForm.get('paymentMethod')?.touched || paymentForm.get('paymentMethod')?.dirty)">
+      <small *ngIf="paymentForm.get('paymentMethod')?.errors?.['required']">O método é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="idOrders">ID Orders</label>
+    <input formControlName="idOrders" type="text" id="idOrders" placeholder="Digite o ID do pedido">
+
+    <div *ngIf="paymentForm.get('idOrders')?.invalid && (paymentForm.get('idOrders')?.touched || paymentForm.get('idOrders')?.dirty)">
+      <small *ngIf="paymentForm.get('idOrders')?.errors?.['required']">O ID do pedido é obrigatório.</small>
+    </div>
+  </div>
+
+  <input type="submit" [value]="buttonName" [disabled]="paymentForm.invalid">
+  <button [routerLink]="['/payment']">Cancelar</button>
+</form>
+
+
+

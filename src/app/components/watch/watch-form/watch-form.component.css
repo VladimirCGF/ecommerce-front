@@ -1,0 +1,65 @@
+/* watch-form.component.css */
+
+form {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+h2 {
+  text-align: center;
+}
+
+label {
+  margin-top: 10px;
+  display: block;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="submit"] {
+  background-color: #007bff; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  border: none; /* Remove a borda padrão */
+  padding: 10px; /* Espaçamento interno */
+  border-radius: 4px; /* Cantos arredondados */
+  cursor: pointer; /* Cursor de ponteiro */
+  font-size: 1rem; /* Tamanho da fonte */
+  width: 100%; /* Faz o botão ocupar toda a largura */
+  transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+
+/* Efeito de hover no botão de submit */
+input[type="submit"]:hover {
+  background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo do botão cancelar */
+button {
+  margin-top: 10px; /* Espaçamento acima do botão */
+  width: 100%; /* Faz o botão ocupar toda a largura */
+  padding: 10px; /* Espaçamento interno */
+  border: none; /* Remove a borda padrão */
+  border-radius: 4px; /* Cantos arredondados */
+  background-color: #f44336; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  cursor: pointer; /* Cursor de ponteiro */
+  font-size: 1rem; /* Tamanho da fonte */
+}
+
+/* Efeito de hover no botão cancelar */
+button:hover {
+  background-color: #c62828; /* Cor de fundo ao passar o mouse */
+}

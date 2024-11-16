@@ -1,0 +1,35 @@
+<form [formGroup]="ordersForm" (ngSubmit)="onSubmit()">
+  <h2>Cadastro de Cupom</h2>
+
+  <div class="form-group">
+    <label for="idClient">ID do Cliente</label>
+    <input formControlName="idClient" type="text" id="idClient" placeholder="Digite o ID do cliente">
+
+    <div *ngIf="ordersForm.get('idClient')?.invalid && (ordersForm.get('idClient')?.touched || ordersForm.get('idClient')?.dirty)">
+      <small *ngIf="ordersForm.get('idClient')?.errors?.['required']">O ID do cliente é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="idAddress">ID do Endereço</label>
+    <input formControlName="idAddress" type="text" id="idAddress" placeholder="Digite o ID do endereço">
+
+    <div *ngIf="ordersForm.get('idAddress')?.invalid && (ordersForm.get('idAddress')?.touched || ordersForm.get('idAddress')?.dirty)">
+      <small *ngIf="ordersForm.get('idAddress')?.errors?.['required']">O ID do endereço é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="coupon">Cupom</label>
+    <input formControlName="coupon" type="text" id="coupon" placeholder="Digite o cupom">
+
+    <div *ngIf="ordersForm.get('coupon')?.invalid && (ordersForm.get('coupon')?.touched || ordersForm.get('coupon')?.dirty)">
+    </div>
+  </div>
+
+  <input type="submit" [value]="buttonName" [disabled]="ordersForm.invalid">
+  <button [routerLink]="['/orders']">Cancelar</button>
+</form>
+
+
+
