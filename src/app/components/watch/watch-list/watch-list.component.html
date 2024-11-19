@@ -83,7 +83,6 @@
       <ng-container matColumnDef="options">
         <th class="text-center" mat-header-cell *matHeaderCellDef> Opções</th>
         <td class="text-center" mat-cell *matCellDef="let element">
-          <button [routerLink]="['/watches/view', element.id]" class="mr-1" mat-flat-button>Visualizar</button>
           <button [routerLink]="['/watches/update', element.id]" class="mr-1" mat-flat-button>Edit</button>
           <button (click)="onDelete(element.id)" color="warn" mat-flat-button>Delete</button>
         </td>

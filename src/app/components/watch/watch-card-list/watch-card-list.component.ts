@@ -6,9 +6,10 @@ import { MatButton } from "@angular/material/button";
 import { NgForOf } from "@angular/common";
 
 type Card = {
+  idStorage: string;
+  nameImage: string;
   name: string;
   price: number;
-  imagePerfil: string;
 }
 
 @Component({
@@ -45,14 +46,14 @@ export class WatchCardListComponent {
   }
 
   loadCards() {
-    const cards: Card[] = [];
-    this.watches.forEach(watch => {
-      cards.push({
+    const cards = this.watches
+      .filter(watch => watch.imagePerfil)
+      .map(watch => ({
+        idStorage: watch.imagePerfil.id,
+        nameImage: watch.imagePerfil.name,
         name: watch.name,
-        price: watch.price,
-        imagePerfil: this.watchService.getImagePerfil(watch.id)
-      });
-    });
+        price: watch.price
+      }));
     this.cards.set(cards);
   }
 }

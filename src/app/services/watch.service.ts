@@ -30,6 +30,7 @@ export class WatchService {
     return this.http.put(`${this.baseUrl}/watches/${id}`, watch);
   }
 
+
   deleteWatch(id: string) {
     return this.http.delete(`${this.baseUrl}/watches/${id}`);
   }
@@ -38,35 +39,18 @@ export class WatchService {
     return this.http.get<Watch>(`${this.baseUrl}/watches/view/${id}`);
   }
 
-  uploadImage(id: string, nameImage: string, imagem: File): Observable<any> {
+  uploadImage(idWatch: string, name: string, file: File): Observable<any> {
     const formData = new FormData();
-    formData.append('id', id);
-    formData.append('nomeImagem', nameImage);
-    formData.append('imagem', imagem);
+    formData.append('idWatch', idWatch);
+    formData.append('nameImage', name);
+    formData.append('imagem', file);
 
-    return this.http.patch(`${this.baseUrl}/watches/image/upload/${id}`, formData);
-  }
-
-  getImagePerfil(id: string): string {
-    const nameImage = 'perfil.jpg';
-    return `http://localhost:8080/api/watches/image/download/${id}/${nameImage}`;
-  }
-
-  getImageUrls(id: string, imageNames: string[]): string[] {
-    const imageUrls: string[] = [];
-    imageNames.forEach(nameImage => {
-      const url = `${this.baseUrl}/watches/image/download/${id}/${nameImage}`;
-      imageUrls.push(url);
-    });
-    return imageUrls;
-  }
-
-  updateListImage(id: string, watch: Watch | null) {
-    return this.http.put(`${this.baseUrl}/watches/atualizarImageUrl/${id}`, watch);
-  }
-
-  getListImageUrls(): Observable<String[]> {
-    return this.http.get<String[]>(`${this.baseUrl}/watches/imageUrlsById/{id}`);
+    return this.http.put(`${this.baseUrl}/watches/image/upload/${idWatch}`, formData).pipe(
+      catchError((error) => {
+        console.error('Erro no upload:', error);
+        return throwError(error);
+      })
+    );
   }
 
   private handleError(error: any): Observable<never> {

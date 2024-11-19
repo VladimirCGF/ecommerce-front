@@ -22,8 +22,9 @@ import {OrdersListComponent} from "./components/orders/orders-list/orders-list.c
 import {HomeComponent} from "./components/home/home.component";
 import {PaymentListComponent} from "./components/payment/payment-list/payment-list.component";
 import {PaymentFormComponent} from "./components/payment/payment-form/payment-form.component";
-import {WatchCardComponent} from "./components/watch/watch-card/watch-card.component";
 import {WatchCardListComponent} from "./components/watch/watch-card-list/watch-card-list.component";
+import {StorageListComponent} from "./components/storage/storage-list/storage-list.component";
+import {StorageFormComponent} from "./components/storage/storage-form/storage-form.component";
 
 export const routes: Routes = [
   {
@@ -46,9 +47,6 @@ export const routes: Routes = [
   },
   {
     path: 'watches', component: WatchListComponent
-  },
-  {
-    path: 'watches/view/:id', component: WatchCardComponent
   },
   {
     path: 'watches/create', component: WatchFormComponent
@@ -127,6 +125,15 @@ export const routes: Routes = [
   },
   {
     path: 'payment/update/:id', component: PaymentFormComponent, title: 'Controle de Pagamento'
+  },
+  {
+    path: 'storage', component: StorageListComponent, title: 'Controle de Storage'
+  },
+  {
+    path: 'storage/create', component: StorageFormComponent, title: 'Controle de Storage'
+  },
+  {
+    path: 'storage/update/:id', component: StorageFormComponent, title: 'Controle de Storage'
   },
   {
     path: 'home', component: HomeComponent, title: 'Inicio'

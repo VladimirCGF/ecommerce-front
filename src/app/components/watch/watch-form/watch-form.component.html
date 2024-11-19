@@ -13,7 +13,8 @@
   <div class="form-group">
     <label for="description">Descrição</label>
     <input formControlName="description" type="text" id="description" placeholder="Digite a descrição">
-    <div *ngIf="watchForm.get('description')?.invalid && (watchForm.get('description')?.touched || watchForm.get('description')?.dirty)">
+    <div
+      *ngIf="watchForm.get('description')?.invalid && (watchForm.get('description')?.touched || watchForm.get('description')?.dirty)">
       <small *ngIf="watchForm.get('description')?.errors?.['required']">A descrição é obrigatória.</small>
     </div>
   </div>
@@ -30,7 +31,8 @@
   <div class="form-group">
     <label for="material">Material</label>
     <input formControlName="material" type="text" id="material" placeholder="Digite o material">
-    <div *ngIf="watchForm.get('material')?.invalid && (watchForm.get('material')?.touched || watchForm.get('material')?.dirty)">
+    <div
+      *ngIf="watchForm.get('material')?.invalid && (watchForm.get('material')?.touched || watchForm.get('material')?.dirty)">
       <small *ngIf="watchForm.get('material')?.errors?.['required']">O material é obrigatório.</small>
     </div>
   </div>
@@ -51,7 +53,8 @@
       <option value="Feminino">Feminino</option>
       <option value="Unissex">Unissex</option>
     </select>
-    <div *ngIf="watchForm.get('gender')?.invalid && (watchForm.get('gender')?.touched || watchForm.get('gender')?.dirty)">
+    <div
+      *ngIf="watchForm.get('gender')?.invalid && (watchForm.get('gender')?.touched || watchForm.get('gender')?.dirty)">
       <small *ngIf="watchForm.get('gender')?.errors?.['required']">O gênero é obrigatório.</small>
     </div>
   </div>
@@ -67,7 +70,8 @@
   <div class="form-group">
     <label for="format">Formato</label>
     <input formControlName="format" type="text" id="format" placeholder="Digite o formato">
-    <div *ngIf="watchForm.get('format')?.invalid && (watchForm.get('format')?.touched || watchForm.get('format')?.dirty)">
+    <div
+      *ngIf="watchForm.get('format')?.invalid && (watchForm.get('format')?.touched || watchForm.get('format')?.dirty)">
       <small *ngIf="watchForm.get('format')?.errors?.['required']">O formato é obrigatório.</small>
     </div>
   </div>
@@ -75,9 +79,15 @@
   <div class="form-group">
     <label for="mechanism">Mecanismo</label>
     <input formControlName="mechanism" type="text" id="mechanism" placeholder="Digite o mecanismo">
-    <div *ngIf="watchForm.get('mechanism')?.invalid && (watchForm.get('mechanism')?.touched || watchForm.get('mechanism')?.dirty)">
+    <div
+      *ngIf="watchForm.get('mechanism')?.invalid && (watchForm.get('mechanism')?.touched || watchForm.get('mechanism')?.dirty)">
       <small *ngIf="watchForm.get('mechanism')?.errors?.['required']">O mecanismo é obrigatório.</small>
     </div>
+  </div>
+
+  <div class="form-group">
+    <label for="imagePerfil">Selecionar Imagem:</label>
+    <input id="imagePerfil" type="file" (change)="onFileSelected($event)" accept="image/*" required />
   </div>
 
   <input type="submit" [value]="buttonName" [disabled]="watchForm.invalid">

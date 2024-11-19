@@ -1,0 +1,27 @@
+<form [formGroup]="storageForm" (ngSubmit)="onSubmit()">
+  <h2>Cadastro de Armazenamento</h2>
+
+  <div class="form-group">
+    <select formControlName="idWatch">
+      <option value="">Selecione um relógio</option>
+      <option *ngFor="let watch of watches" [value]="watch.id">{{ watch.name }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="name">Nome</label>
+    <input formControlName="name" type="text" id="name" placeholder="Digite o nome">
+    <div
+      *ngIf="storageForm.get('name')?.invalid && (storageForm.get('name')?.touched || storageForm.get('name')?.dirty)">
+      <small *ngIf="storageForm.get('name')?.errors?.['required']">O nome é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="image">Selecionar Imagem:</label>
+    <input id="image" type="file" (change)="onFileSelected($event)" accept="image/*" required />
+  </div>
+
+  <input type="submit" [value]="buttonName" [disabled]="storageForm.invalid || !selectedFile">
+  <button [routerLink]="['/storage']">Cancelar</button>
+</form>

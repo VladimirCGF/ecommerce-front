@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {WatchService} from "../../../services/watch.service";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {StockService} from "../../../services/stock.service";
-import {StateService} from "../../../services/state.service";
 import {NgIf} from "@angular/common";
 
 @Component({
@@ -18,11 +16,12 @@ import {NgIf} from "@angular/common";
   templateUrl: './watch-form.component.html',
   styleUrl: './watch-form.component.css'
 })
-export class WatchFormComponent implements OnInit{
+export class WatchFormComponent implements OnInit {
 
   watchForm!: FormGroup;
   buttonName: string = "Cadastrar";
   private id: string | null | undefined;
+  selectedFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -37,14 +36,15 @@ export class WatchFormComponent implements OnInit{
     this.watchForm = this.fb.group({
       id: [null],
       name: ['', [Validators.required]],
-      description:['', [Validators.required]],
+      description: ['', [Validators.required]],
       price: [0, [Validators.required, Validators.min(1)]],
       material: ['', [Validators.required]],
       color: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       brand: ['', [Validators.required]],
       format: ['', [Validators.required]],
-      mechanism: ['', [Validators.required],]
+      mechanism: ['', [Validators.required]],
+      imagePerfil: [],
     });
 
     this.route.paramMap.subscribe(params => {
@@ -63,7 +63,6 @@ export class WatchFormComponent implements OnInit{
   onSubmit() {
     console.log("Submetendo formulário...");
     console.log("Formulário atual:", this.watchForm.value);
-
     if (this.watchForm.invalid) {
       console.error("Formulário inválido:", this.watchForm.errors);
       return;
@@ -79,8 +78,23 @@ export class WatchFormComponent implements OnInit{
     console.log('Criando novo relógio');
     if (this.watchForm.valid) {
       this.watchService.insertWatch(this.watchForm.value).subscribe(response => {
+        if (this.selectedFile && this.watchForm.valid) {
+          console.log(response)
+          console.log('Dados enviados:', response.id, this.selectedFile.name, this.selectedFile);
+          this.watchService.uploadImage(response.id, this.selectedFile.name, this.selectedFile)
+            .subscribe({
+              next: (response) => {
+                this.router.navigate(['/watches']);
+                console.log('Upload successful:', response);
+              },
+              error: (error) => {
+                console.error('Upload failed:', error);
+              }
+            });
+        } else {
+          console.error('No file selected or Form is invalid.');
+        }
         console.log('Relógio criado com sucesso:', response);
-        this.router.navigate(['/watches']);
       }, error => {
         console.error('Erro ao criar relógio:', error);
       });
@@ -100,6 +114,13 @@ export class WatchFormComponent implements OnInit{
       });
     } else {
       console.log('Formulário inválido:', this.watchForm.errors);
+    }
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
     }
   }
 

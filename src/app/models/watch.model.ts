@@ -1,3 +1,5 @@
+import {Storage} from "./storage.model";
+
 export class Watch {
   id!: string;
   name!: string;
@@ -9,6 +11,6 @@ export class Watch {
   brand!: string;
   format!: string;
   mechanism!: string;
-  imagePerfil!: string;
-  imageUrls!: string[];
+  imagePerfil!: Storage;
+  imageUrls!: Storage[];
 }
