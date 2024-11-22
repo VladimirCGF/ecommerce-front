@@ -26,6 +26,15 @@ export class ClientService {
       );
   }
 
+  createClient(client: Client): Observable<Client> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    );
+    return this.http.post<Client>(`${this.baseUrl}/client/createClient`, client, {headers})
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   updateClient(id: string, client: Client) {
     return this.http.put(`${this.baseUrl}/client/${id}`, client);
   }

@@ -1,15 +1,26 @@
 <mat-drawer-container class="container">
-  <mat-drawer #drawer  mode="side" opened>
-    <mat-toolbar>
+  <mat-drawer #drawer class="drawer" mode="side" opened>
+    <mat-toolbar class="drawer-header">
       <span>Menu</span>
     </mat-toolbar>
     <mat-nav-list>
-      <mat-list-item>Home</mat-list-item>
-<!--      <mat-list-item routerLink="/admin/states">Controle de Estado</mat-list-item>-->
-<!--      <mat-list-item routerLink="/admin/municipality">Controle de Municípios</mat-list-item>-->
+      <mat-list-item class="drawer-item" routerLink="/admin/states">Controle de Estado</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/municipality">Controle de Município</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/address">Controle de Endereço</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/client">Controle de Cliente</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/coupon">Controle de Cupom</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/employee">Controle de Funcionário</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/orderItem">Controle de Items Pedido</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/orders">Controle de Pedidos</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/stock">Controle de Estoque</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/watches">Controle de Relógio</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/payment">Controle de Pagamento</mat-list-item>
+      <mat-list-item class="drawer-item" routerLink="/admin/storage">Controle de Armazenamento</mat-list-item>
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
+
+

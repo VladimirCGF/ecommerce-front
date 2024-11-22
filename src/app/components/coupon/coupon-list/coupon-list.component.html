@@ -1,5 +1,4 @@
 <nav class="navbar">
-  <button [routerLink]="['/home']">Início</button>
   <div class="search-bar">
     <mat-form-field appearance="outline" class="full-width">
       <input matInput placeholder="Buscar Cupom" (keyup)="applyFilter($event)" />
@@ -11,7 +10,7 @@
   <h1>Lista de Cupom</h1>
 </div>
 <div class="div-cadastro">
-  <button [routerLink]="['/coupon/create']" class="mr-1" mat-flat-button>Cadastrar</button>
+  <button [routerLink]="['/admin/coupon/create']" class="mr-1" mat-flat-button>Cadastrar</button>
 
 </div>
 
@@ -47,7 +46,7 @@
       <ng-container matColumnDef="options">
         <th class="text-center" mat-header-cell *matHeaderCellDef> Options</th>
         <td class="text-center" mat-cell *matCellDef="let element">
-          <button [routerLink]="['/coupon/update', element.id]" class="mr-1" mat-flat-button>Edit</button>
+          <button [routerLink]="['/admin/coupon/update', element.id]" class="mr-1" mat-flat-button>Edit</button>
           <button (click)="onDelete(element.id)" color="warn" mat-flat-button>Delete</button>
         </td>
       </ng-container>

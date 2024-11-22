@@ -1,0 +1,48 @@
+.container {
+  height: 100vh;
+}
+
+.drawer {
+  width: 300px;
+  background-color: #ffffff;
+  color: white;
+}
+
+.drawer-header {
+  color: white;
+  background-color: #303f9f;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.drawer-item {
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.drawer-item:hover {
+  background-color: #717aa6;
+  cursor: pointer;
+}
+
+.drawer-item[routerLinkActive] {
+  background-color: #7986cb;
+}
+
+.container {
+  height: 100vh; /* Mantém a altura completa */
+  overflow: hidden; /* Remove a rolagem */
+}
+
+mat-drawer-content {
+  height: 100%;
+  overflow: hidden;
+}
+
+
+
+
+

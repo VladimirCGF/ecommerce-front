@@ -3,3 +3,22 @@
   text-align: center;
   font-size: small;
 }
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+.content {
+  flex: 1;
+}
+
+
+.footer {
+  text-align: center;
+  font-size: small;
+  background-color: #3f51b5;
+  color: white;
+}

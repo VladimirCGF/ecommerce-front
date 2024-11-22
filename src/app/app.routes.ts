@@ -19,129 +19,159 @@ import {OrderItemListComponent} from "./components/orderItem/order-item-list/ord
 import {OrderItemFormComponent} from "./components/orderItem/order-item-form/order-item-form.component";
 import {OrdersFormComponent} from "./components/orders/orders-form/orders-form.component";
 import {OrdersListComponent} from "./components/orders/orders-list/orders-list.component";
-import {HomeComponent} from "./components/home/home.component";
 import {PaymentListComponent} from "./components/payment/payment-list/payment-list.component";
 import {PaymentFormComponent} from "./components/payment/payment-form/payment-form.component";
 import {WatchCardListComponent} from "./components/watch/watch-card-list/watch-card-list.component";
 import {StorageListComponent} from "./components/storage/storage-list/storage-list.component";
 import {StorageFormComponent} from "./components/storage/storage-form/storage-form.component";
 import {WatchViewComponent} from "./components/watch/watch-view/watch-view.component";
+import {UserTemplateComponent} from "./components/template/user-template/user-template.component";
+import {AdminTemplateComponent} from "./components/template/admin-template/admin-template.component";
+import {ClientCreateComponent} from "./components/client/client-create/client-create.component";
+import {LoginComponent} from "./components/login/login.component";
 
 export const routes: Routes = [
   {
-    path: 'states', component: StateListComponent
+    path: '',
+    component: UserTemplateComponent,
+    title: 'e-commerce',
+    children: [
+      {
+        path: '', pathMatch: 'full', redirectTo: 'ecommerce'
+      },
+      {
+        path: 'ecommerce', component: WatchCardListComponent, title: 'Lista de Cards de Watch'
+      },
+      {
+        path: 'watches/view/:id', component: WatchViewComponent
+      },
+      {
+        path: 'createClient', component: ClientCreateComponent
+      },
+      {
+        path: 'login', component: LoginComponent
+      },
+    ]
   },
   {
-    path: 'states/create', component: StateFormComponent
-  },
-  {
-    path: 'states/update/:id', component: StateFormComponent
-  },
-  {
-    path: 'municipality', component: MunicipalityListComponent
-  },
-  {
-    path: 'municipality/create', component: MunicipalityFormComponent
-  },
-  {
-    path: 'municipality/update/:id', component: MunicipalityFormComponent
-  },
-  {
-    path: 'watches', component: WatchListComponent
-  },
-  {
-    path: 'watches/create', component: WatchFormComponent
-  },
-  {
-    path: 'watches/update/:id', component: WatchFormComponent
-  }, {
-    path: 'watches/view/:id', component: WatchViewComponent
-  },
-  {
-    path: 'coupon', component: CouponListComponent
-  },
-  {
-    path: 'coupon/create', component: CouponFormComponent
-  },
-  {
-    path: 'coupon/update/:id', component: CouponFormComponent
-  },
-  {
-    path: 'stock', component: StockListComponent, title: 'Controle de Stock'
-  },
-  {
-    path: 'stock/create', component: StockFormComponent, title: 'Controle de Stock'
-  },
-  {
-    path: 'stock/update/:id', component: StockFormComponent, title: 'Controle de Stock'
-  },
-  {
-    path: 'client', component: ClientListComponent, title: 'Controle de Client'
-  },
-  {
-    path: 'client/create', component: ClientFormComponent, title: 'Controle de Client'
-  },
-  {
-    path: 'client/update/:id', component: ClientFormComponent, title: 'Controle de Client'
-  },
-  {
-    path: 'address', component: AddressListComponent, title: 'Controle de Endereço'
-  },
-  {
-    path: 'address/create', component: AddressFormComponent, title: 'Controle de Endereço'
-  },
-  {
-    path: 'address/update/:id', component: AddressFormComponent, title: 'Controle de Endereço'
-  },
-  {
-    path: 'employee', component: EmployeeListComponent, title: 'Controle de Funcionário'
-  },
-  {
-    path: 'employee/create', component: EmployeeFormComponent, title: 'Controle de Funcionário'
-  },
-  {
-    path: 'employee/update/:id', component: EmployeeFormComponent, title: 'Controle de Funcionário'
-  },
-  {
-    path: 'orderItem', component: OrderItemListComponent, title: 'Controle de OrderItem'
-  },
-  {
-    path: 'orderItem/create', component: OrderItemFormComponent, title: 'Controle de OrderItem'
-  },
-  {
-    path: 'orderItem/update/:id', component: OrderItemFormComponent, title: 'Controle de OrderItem'
-  },
-  {
-    path: 'orders', component: OrdersListComponent, title: 'Controle de Orders'
-  },
-  {
-    path: 'orders/create', component: OrdersFormComponent, title: 'Controle de Orders'
-  },
-  {
-    path: 'orders/update/:id', component: OrdersFormComponent, title: 'Controle de Orders'
-  },
-  {
-    path: 'payment', component: PaymentListComponent, title: 'Controle de Pagamento'
-  },
-  {
-    path: 'payment/create', component: PaymentFormComponent, title: 'Controle de Pagamento'
-  },
-  {
-    path: 'payment/update/:id', component: PaymentFormComponent, title: 'Controle de Pagamento'
-  },
-  {
-    path: 'storage', component: StorageListComponent, title: 'Controle de Storage'
-  },
-  {
-    path: 'storage/create', component: StorageFormComponent, title: 'Controle de Storage'
-  },
-  {
-    path: 'storage/update/:id', component: StorageFormComponent, title: 'Controle de Storage'
-  },
-  {
-    path: 'home', component: HomeComponent, title: 'Inicio'
-  },
-  {
-    path: 'ecommerce', component: WatchCardListComponent, title: 'Lista de Cards de Watch'
+    path: 'admin',
+    component: AdminTemplateComponent,
+    title: 'Administração',
+    children: [
+      {
+        path: '', pathMatch: 'full', redirectTo: 'states'
+      },
+      {
+        path: 'states', component: StateListComponent
+      },
+      {
+        path: 'states/create', component: StateFormComponent
+      },
+      {
+        path: 'states/update/:id', component: StateFormComponent
+      },
+      {
+        path: 'municipality', component: MunicipalityListComponent
+      },
+      {
+        path: 'municipality/create', component: MunicipalityFormComponent
+      },
+      {
+        path: 'municipality/update/:id', component: MunicipalityFormComponent
+      },
+      {
+        path: 'watches', component: WatchListComponent
+      },
+      {
+        path: 'watches/create', component: WatchFormComponent
+      },
+      {
+        path: 'watches/update/:id', component: WatchFormComponent
+      },
+      {
+        path: 'watches/view/:id', component: WatchViewComponent
+      },
+      {
+        path: 'coupon', component: CouponListComponent
+      },
+      {
+        path: 'coupon/create', component: CouponFormComponent
+      },
+      {
+        path: 'coupon/update/:id', component: CouponFormComponent
+      },
+      {
+        path: 'stock', component: StockListComponent, title: 'Controle de Stock'
+      },
+      {
+        path: 'stock/create', component: StockFormComponent, title: 'Controle de Stock'
+      },
+      {
+        path: 'stock/update/:id', component: StockFormComponent, title: 'Controle de Stock'
+      },
+      {
+        path: 'client', component: ClientListComponent, title: 'Controle de Client'
+      },
+      {
+        path: 'client/create', component: ClientFormComponent, title: 'Controle de Client'
+      },
+      {
+        path: 'client/update/:id', component: ClientFormComponent, title: 'Controle de Client'
+      },
+      {
+        path: 'address', component: AddressListComponent, title: 'Controle de Endereço'
+      },
+      {
+        path: 'address/create', component: AddressFormComponent, title: 'Controle de Endereço'
+      },
+      {
+        path: 'address/update/:id', component: AddressFormComponent, title: 'Controle de Endereço'
+      },
+      {
+        path: 'employee', component: EmployeeListComponent, title: 'Controle de Funcionário'
+      },
+      {
+        path: 'employee/create', component: EmployeeFormComponent, title: 'Controle de Funcionário'
+      },
+      {
+        path: 'employee/update/:id', component: EmployeeFormComponent, title: 'Controle de Funcionário'
+      },
+      {
+        path: 'orderItem', component: OrderItemListComponent, title: 'Controle de OrderItem'
+      },
+      {
+        path: 'orderItem/create', component: OrderItemFormComponent, title: 'Controle de OrderItem'
+      },
+      {
+        path: 'orderItem/update/:id', component: OrderItemFormComponent, title: 'Controle de OrderItem'
+      },
+      {
+        path: 'orders', component: OrdersListComponent, title: 'Controle de Orders'
+      },
+      {
+        path: 'orders/create', component: OrdersFormComponent, title: 'Controle de Orders'
+      },
+      {
+        path: 'orders/update/:id', component: OrdersFormComponent, title: 'Controle de Orders'
+      },
+      {
+        path: 'payment', component: PaymentListComponent, title: 'Controle de Pagamento'
+      },
+      {
+        path: 'payment/create', component: PaymentFormComponent, title: 'Controle de Pagamento'
+      },
+      {
+        path: 'payment/update/:id', component: PaymentFormComponent, title: 'Controle de Pagamento'
+      },
+      {
+        path: 'storage', component: StorageListComponent, title: 'Controle de Storage'
+      },
+      {
+        path: 'storage/create', component: StorageFormComponent, title: 'Controle de Storage'
+      },
+      {
+        path: 'storage/update/:id', component: StorageFormComponent, title: 'Controle de Storage'
+      },
+    ]
   }
 ];

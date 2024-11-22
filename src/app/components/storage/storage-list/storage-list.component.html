@@ -1,5 +1,4 @@
 <nav class="navbar">
-  <button [routerLink]="['/home']">Início</button>
   <div class="search-bar">
     <mat-form-field appearance="outline" class="full-width">
       <input matInput placeholder="Buscar armazenamento" (keyup)="applyFilter($event)" />
@@ -12,7 +11,7 @@
 </div>
 
 <div class="div-cadastro">
-  <button [routerLink]="['/storage/create']" class="mr-1" mat-flat-button>Cadastrar</button>
+  <button [routerLink]="['/admin/storage/create']" class="mr-1" mat-flat-button>Cadastrar</button>
 </div>
 
 <div class="table-center">
