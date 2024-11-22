@@ -12,5 +12,5 @@ export class Watch {
   format!: string;
   mechanism!: string;
   imagePerfil!: Storage;
-  imageUrls!: Storage[];
+  storages!: Storage[];
 }

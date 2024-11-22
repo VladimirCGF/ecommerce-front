@@ -1,19 +1,26 @@
+/* Estilo para imagens */
 img {
+  max-width: none !important;
+  max-height: none !important;
+  display: block; /* Remove espaço extra em imagens dentro de elementos inline */
   width: 100%;
   height: 240px;
-  object-fit: cover;
+  object-fit: cover; /* Garante que a imagem preencha o espaço mantendo proporção */
 }
 
+/* Estilo para o container principal */
 .container {
   padding: 20px;
 }
 
+/* Grid responsivo para os itens */
 .responsive-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Layout responsivo */
+  gap: 20px; /* Espaço entre os itens */
 }
 
+/* Texto centralizado */
 .centered-text {
   text-align: center;
   display: flex;
@@ -21,10 +28,23 @@ img {
   justify-content: center;
 }
 
+/* Estilo para a imagem dentro do card */
 .mat-mdc-card-image {
-  padding: 10px;
+  padding: 10px; /* Espaçamento interno */
 }
 
-.mat-mdc.card-title {
-  text-align: left;
+/* Estilo para o título do card */
+.mat-mdc-card-title {
+  text-align: left; /* Alinhamento do texto à esquerda */
 }
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #0073e6;
+}
+

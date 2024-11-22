@@ -1,0 +1,50 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.title {
+  width: 500px;
+}
+
+.centerCol {
+  padding: 5px;
+}
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-right: 20px;
+}
+
+.thumbnail img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  transition: transform 0.2s ease;
+}
+
+.thumbnail img:hover {
+  transform: scale(1.1);
+}
+
+.img-view img {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.mat-mdc-button:not(:disabled) {
+  color: #000000;
+}
+
+
+
+
+
+
+
+
+

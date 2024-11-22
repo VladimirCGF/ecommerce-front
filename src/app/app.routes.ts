@@ -25,6 +25,7 @@ import {PaymentFormComponent} from "./components/payment/payment-form/payment-fo
 import {WatchCardListComponent} from "./components/watch/watch-card-list/watch-card-list.component";
 import {StorageListComponent} from "./components/storage/storage-list/storage-list.component";
 import {StorageFormComponent} from "./components/storage/storage-form/storage-form.component";
+import {WatchViewComponent} from "./components/watch/watch-view/watch-view.component";
 
 export const routes: Routes = [
   {
@@ -53,6 +54,8 @@ export const routes: Routes = [
   },
   {
     path: 'watches/update/:id', component: WatchFormComponent
+  }, {
+    path: 'watches/view/:id', component: WatchViewComponent
   },
   {
     path: 'coupon', component: CouponListComponent
@@ -139,6 +142,6 @@ export const routes: Routes = [
     path: 'home', component: HomeComponent, title: 'Inicio'
   },
   {
-    path: 'ecommerce', component: WatchCardListComponent, title: 'Lista de Cards de Faixas'
+    path: 'ecommerce', component: WatchCardListComponent, title: 'Lista de Cards de Watch'
   }
 ];

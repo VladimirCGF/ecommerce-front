@@ -1,0 +1,49 @@
+<div class="main" *ngIf="storages">
+  <div class="centerCol" *ngIf="watch">
+    <div class="title">
+      <h5>{{ watch.name }}</h5>
+    </div>
+    <div class="price">
+      <p><strong>R$</strong> {{ watch.price }}</p>
+    </div>
+    <div class="description">
+      <p><strong>Descrição:</strong> {{ watch.description }}</p>
+      <p><strong>Material:</strong> {{ watch.material }}</p>
+      <p><strong>Cor:</strong> {{ watch.color }}</p>
+      <p><strong>Gênero:</strong> {{ watch.gender }}</p>
+      <p><strong>Marca:</strong> {{ watch.brand }}</p>
+      <p><strong>Mecanismo:</strong> {{ watch.mechanism }}</p>
+    </div>
+  </div>
+
+  <div class="carousel">
+    <div class="thumbnail" *ngFor="let element of storages">
+      <img
+        mat-card-image
+        alt="Imagem"
+        style="max-width: 80px; max-height: 80px; cursor: pointer;"
+        class="mat-mdc-card-image mdc-card__media"
+        [src]="'http://localhost:8080/api/storage/image/download/' + element.idWatch + '/' + element.name"
+        (click)="onImageClick(element)"
+      />
+    </div>
+  </div>
+
+  <div class="img-view" *ngIf="selectedImage">
+    <img
+      [src]="selectedImage" alt="Imagem selecionada" style="max-width: 400px; max-height: 400px;">
+  </div>
+
+  <div class="buyCol" *ngIf="watch">
+    <p><strong> R$ </strong>{{ watch.price }} </p>
+    <p><strong>Em estoque</strong></p>
+    <p><strong>Quantidade: </strong></p>
+    <button class="button-carrinho" mat-button style="width: 100%; padding: 16px;">
+      Adicionar ao Carrinho
+    </button>
+    <button class="button-comprar" mat-button style="width: 100%; padding: 16px;">
+      Comprar agora
+    </button>
+  </div>
+</div>
+

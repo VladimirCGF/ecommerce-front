@@ -4,16 +4,14 @@
          alt="Imagem"
          style="max-width: 100px; max-height: 100px"
          class="mat-mdc-card-image mdc-card__media"
-         [src]="'http://localhost:8080/api/storage/image/download/' + card.idStorage + '/' + card.nameImage">
-    <mat-card-title class="centered-text">{{ card.name }}</mat-card-title>
+         [src]="'http://localhost:8080/api/storage/image/download/' + card.idWatch + '/' + card.nameImage">
+    <mat-card-title class="centered-text">
+      <a [routerLink]="['/watches/view', card.idWatch]" class="link">{{ card.name | slice:0:45 }}</a>
+    </mat-card-title>
     <br/>
     <mat-card-content class="centered-text">
       R$ {{ card.price }}
     </mat-card-content>
-
-    <mat-card-actions class="centered-text">
-      <button mat-button color="primary">Ver Mais ...</button>
-    </mat-card-actions>
 
     <mat-card-footer>
       <button mat-button color="accent" style="width: 100%; padding: 16px;">

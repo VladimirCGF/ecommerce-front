@@ -3,10 +3,11 @@ import { Watch } from "../../../models/watch.model";
 import { WatchService } from "../../../services/watch.service";
 import { MatCard, MatCardActions, MatCardContent, MatCardFooter, MatCardImage, MatCardTitle } from "@angular/material/card";
 import { MatButton } from "@angular/material/button";
-import { NgForOf } from "@angular/common";
+import {NgForOf, SlicePipe} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 type Card = {
-  idStorage: string;
+  idWatch: string;
   nameImage: string;
   name: string;
   price: number;
@@ -23,7 +24,9 @@ type Card = {
     MatCardActions,
     MatCardFooter,
     MatButton,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    SlicePipe
   ],
   templateUrl: './watch-card-list.component.html',
   styleUrls: ['./watch-card-list.component.css']
@@ -49,7 +52,7 @@ export class WatchCardListComponent {
     const cards = this.watches
       .filter(watch => watch.imagePerfil)
       .map(watch => ({
-        idStorage: watch.imagePerfil.id,
+        idWatch: watch.id,
         nameImage: watch.imagePerfil.name,
         name: watch.name,
         price: watch.price

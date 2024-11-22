@@ -29,6 +29,10 @@ export class StorageService {
     return this.http.get<Storage>(`${this.baseUrl}/storage/view/${id}`);
   }
 
+  getStorageAllByWatchId(id: string): Observable<Storage[]> {
+    return this.http.get<Storage[]>(`${this.baseUrl}/storage/findAllByWatchId/${id}`);
+  }
+
 
   insertStorage(idWatch: string, name: string, file: File): Observable<Storage> {
     const formData = new FormData();
