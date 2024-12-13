@@ -82,7 +82,7 @@ export class StorageFormComponent implements OnInit {
         .subscribe({
           next: (response) => {
             console.log('Upload successful:', response);
-            this.router.navigate(['/storage']);
+            this.router.navigate(['/admin/storage']);
           },
           error: (error) => {
             console.error('Upload failed:', error);

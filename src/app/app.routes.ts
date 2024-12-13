@@ -36,7 +36,6 @@ import {ClientCarrinhoComponent} from "./components/client/client-carrinho/clien
 import {ClientPagamentoComponent} from "./components/client/client-pagamento/client-pagamento.component";
 
 
-
 export const routes: Routes = [
   {
     path: 'login', component: LoginComponent,

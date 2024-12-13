@@ -81,7 +81,7 @@ export class MunicipalityFormComponent implements OnInit {
     if (this.municipalityForm.valid) {
       this.municipalityService.insertMunicipality(this.municipalityForm.value).subscribe(response => {
         console.log('Município criado com sucesso:', response);
-        this.router.navigate(['/municipality']);
+        this.router.navigate(['/admin/municipality']);
       }, error => {
         console.error('Erro ao criar município:', error);
       });
@@ -95,7 +95,7 @@ export class MunicipalityFormComponent implements OnInit {
     if (this.municipalityForm.valid && this.id) {
       this.municipalityService.updateMunicipality(this.id, this.municipalityForm.value).subscribe(response => {
         console.log('Município atualizado com sucesso:', response);
-        this.router.navigate(['/municipality']);
+        this.router.navigate(['/admin/municipality']);
       }, error => {
         console.error('Erro ao atualizar município:', error);
       });

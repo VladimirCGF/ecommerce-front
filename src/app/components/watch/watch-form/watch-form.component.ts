@@ -3,6 +3,8 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {WatchService} from "../../../services/watch.service";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgIf} from "@angular/common";
+import {LocalStorageService} from "../../../services/local-storage.service";
+import {StorageService} from "../../../services/storage.service";
 
 @Component({
   selector: 'app-watch-form',
@@ -27,7 +29,9 @@ export class WatchFormComponent implements OnInit {
     private fb: FormBuilder,
     private watchService: WatchService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
+    private storageService: StorageService
   ) {
   }
 
@@ -81,10 +85,10 @@ export class WatchFormComponent implements OnInit {
         if (this.selectedFile && this.watchForm.valid) {
           console.log(response)
           console.log('Dados enviados:', response.id, this.selectedFile.name, this.selectedFile);
-          this.watchService.uploadImage(response.id, this.selectedFile.name, this.selectedFile)
+          this.storageService.insertStorage(response.id, this.selectedFile.name, this.selectedFile)
             .subscribe({
               next: (response) => {
-                this.router.navigate(['/watches']);
+                this.router.navigate(['/admin/watches']);
                 console.log('Upload successful:', response);
               },
               error: (error) => {
@@ -108,7 +112,7 @@ export class WatchFormComponent implements OnInit {
     if (this.watchForm.valid && this.id) {
       this.watchService.updateWatch(this.id, this.watchForm.value).subscribe(response => {
         console.log('Relógio atualizado com sucesso:', response);
-        this.router.navigate(['/watches']);
+        this.router.navigate(['/admin/watches']);
       }, error => {
         console.error('Erro ao atualizar relógio:', error);
       });

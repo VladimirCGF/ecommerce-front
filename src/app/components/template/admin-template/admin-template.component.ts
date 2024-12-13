@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FooterComponent} from "../footer/footer.component";
 import {SidebarComponent} from "../sidebar/sidebar.component";
 import {HeaderComponent} from "../header/header.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-admin-template',
@@ -9,7 +10,8 @@ import {HeaderComponent} from "../header/header.component";
   imports: [
     FooterComponent,
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    RouterOutlet
   ],
   templateUrl: './admin-template.component.html',
   styleUrl: './admin-template.component.css'
