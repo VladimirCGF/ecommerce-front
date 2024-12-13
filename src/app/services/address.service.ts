@@ -38,6 +38,10 @@ export class AddressService {
     return this.http.get<Address>(`${this.baseUrl}/address/${id}`);
   }
 
+  getMyListAddress(id: number): Observable<Address[]> {
+    return this.http.get<Address[]>(`${this.baseUrl}/address/myList/${id}`);
+  }
+
   private handleError(error: any): Observable<never> {
     console.error('Ocorreu um erro:', error);
     return throwError(() => new Error('Houve um problema ao inserir o endereço. Tente novamente mais tarde.'));

@@ -1,0 +1,17 @@
+<div class="main">
+  <div class="center">
+    <h3>MEUS PEDIDOS</h3>
+    <div class="orders">
+      <div class="header">
+        <h5><strong>PEDIDOS</strong></h5>
+      </div>
+      <div class="info" *ngFor="let element of orders">
+        <p><strong>Pedido:</strong> {{ element.id }}</p>
+        <p><strong>Data do Pedido:</strong> {{ element.orderDate | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Preço Total:</strong> R$ {{ element.totalPrice }}</p>
+        <p><strong>Status:</strong> {{ element.status }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+

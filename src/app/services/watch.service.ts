@@ -30,13 +30,20 @@ export class WatchService {
     return this.http.put(`${this.baseUrl}/watches/${id}`, watch);
   }
 
-
   deleteWatch(id: string) {
     return this.http.delete(`${this.baseUrl}/watches/${id}`);
   }
 
   getWatchById(id: string): Observable<Watch> {
     return this.http.get<Watch>(`${this.baseUrl}/watches/view/${id}`);
+  }
+
+  getWatchesByIdOrder(id: number): Observable<Watch[]> {
+    return this.http.get<Watch[]>(`${this.baseUrl}/watches/by-order/${id}`);
+  }
+
+  getWatchesByName(name: string): Observable<Watch[]> {
+    return this.http.get<Watch[]>(`${this.baseUrl}/watches/findByName/${name}`);
   }
 
   uploadImage(idWatch: string, name: string, file: File): Observable<any> {

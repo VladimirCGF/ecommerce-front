@@ -33,6 +33,9 @@ export class ClientCreateComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      cpf: ['', [Validators.required]],
     }, {validator: this.passwordMatchValidator});
   }
 
@@ -52,7 +55,7 @@ export class ClientCreateComponent implements OnInit {
     if (this.clientForm.valid) {
       this.clientService.createClient(this.clientForm.value).subscribe(response => {
         console.log('Cliente criado com sucesso:', response);
-        this.router.navigate(['']);
+        this.router.navigate(['/login']);
       }, error => {
         console.error('Erro ao criar cliente:', error);
       });

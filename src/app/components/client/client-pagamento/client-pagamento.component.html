@@ -1,0 +1,36 @@
+<div class="main">
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <div class="content">
+      <div class="secao">
+        <div class="form-group">
+          <label>Método de Pagamento</label>
+          <mat-radio-group
+            formControlName="paymentMethod"
+            aria-label="Selecione o método de pagamento"
+            class="form-control"
+            required>
+            <mat-radio-button value="1">Cartão de crédito</mat-radio-button>
+            <mat-radio-button value="2">Cartão de débito</mat-radio-button>
+            <mat-radio-button value="3">Pix</mat-radio-button>
+          </mat-radio-group>
+          <div
+            *ngIf="paymentForm.get('paymentMethod')?.invalid && (paymentForm.get('paymentMethod')?.touched || paymentForm.get('paymentMethod')?.dirty)">
+            <small *ngIf="paymentForm.get('paymentMethod')?.errors?.['required']" class="text-danger">O método de
+              pagamento é obrigatório.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagamento">
+        <div class="resumo" *ngIf="orders">
+          <h6><strong>RESUMO</strong></h6>
+          <p>Valor dos Produtos: <strong>R${{ orders.totalPrice }} </strong></p>
+        </div>
+        <div class="opcao">
+          <button mat-flat-button color="primary" (click)="save()" [routerLink]="['/minha-conta/meus-pedidos',]">PAGAR</button>
+          <button [routerLink]="['/ecommerce',]">VOLTAR</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

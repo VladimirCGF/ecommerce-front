@@ -1,0 +1,42 @@
+<div class="main mat-elevation-z4" *ngIf="client">
+  <mat-card class="header-card">
+    <mat-card-title>Bem-vindo, {{ client.firstName }} {{ client.lastName }}</mat-card-title>
+    <mat-card-subtitle>{{ client.email }}</mat-card-subtitle>
+  </mat-card>
+
+  <div class="sections">
+    <a mat-flat-button class="card-button" color="primary" [routerLink]="['/minha-conta/meus-pedidos']">
+      <mat-card class="card-section">
+        <mat-card-title>MEUS PEDIDOS</mat-card-title>
+        <mat-card-content>
+          <p>Veja históricos e acompanhe suas compras.</p>
+        </mat-card-content>
+      </mat-card>
+    </a>
+
+    <a mat-flat-button class="card-button" color="accent" [routerLink]="['/minha-conta/meus-dados']">
+      <mat-card class="card-section">
+        <mat-card-title>MEUS DADOS</mat-card-title>
+        <mat-card-content>
+          <p>Altere seus dados cadastrados, endereços ou cadastre um novo endereço.</p>
+        </mat-card-content>
+      </mat-card>
+    </a>
+
+<!--    <button mat-flat-button class="card-button" color="warn">-->
+<!--      <mat-card class="card-section">-->
+<!--        <mat-card-title>FAVORITOS</mat-card-title>-->
+<!--        <mat-card-content>-->
+<!--          <p>Consulte sua lista de produtos favoritos.</p>-->
+<!--        </mat-card-content>-->
+<!--      </mat-card>-->
+<!--    </button>-->
+  </div>
+</div>
+
+
+
+
+
+
+

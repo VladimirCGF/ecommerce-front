@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {CouponService} from "../../../services/coupon.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {OrderItemService} from "../../../services/order-item.service";
 import {NgIf} from "@angular/common";
@@ -17,7 +16,7 @@ import {NgIf} from "@angular/common";
   templateUrl: './order-item-form.component.html',
   styleUrl: './order-item-form.component.css'
 })
-export class OrderItemFormComponent implements OnInit{
+export class OrderItemFormComponent implements OnInit {
 
   orderItemForm!: FormGroup;
   buttonName: string = "Cadastrar";
@@ -38,6 +37,7 @@ export class OrderItemFormComponent implements OnInit{
       idOrders: ['', Validators.required],
       idWatch: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.min(1)]],
+      price: ['', [Validators.required, Validators.min(1)]],
     });
 
 
@@ -45,7 +45,13 @@ export class OrderItemFormComponent implements OnInit{
       this.id = params.get("id");
       if (this.id) {
         this.orderItemService.getOrderItemById(this.id).subscribe(data => {
-          this.orderItemForm.patchValue(data);
+          this.orderItemForm.patchValue({
+            id: data.id,
+            idOrders: data.idOrders,
+            idWatch: data.idWatch.id,
+            quantity: data.quantity,
+            price: data.price,
+          });
         })
         this.buttonName = "Editar";
       } else {
@@ -74,7 +80,7 @@ export class OrderItemFormComponent implements OnInit{
     if (this.orderItemForm.valid) {
       this.orderItemService.insertOrderItem(this.orderItemForm.value).subscribe(response => {
         console.log('OrderItem criado com sucesso:', response);
-        this.router.navigate(['/orderItem']);
+        this.router.navigate(['/admin/orderItem']);
       }, error => {
         console.error('Erro ao criar OrderItem:', error);
       });
@@ -88,7 +94,7 @@ export class OrderItemFormComponent implements OnInit{
     if (this.orderItemForm.valid && this.id) {
       this.orderItemService.updateOrderItem(this.id, this.orderItemForm.value).subscribe(response => {
         console.log('OrderItem atualizado com sucesso:', response);
-        this.router.navigate(['/orderItem']);
+        this.router.navigate(['/admin/orderItem']);
       }, error => {
         console.error('Erro ao atualizar orderItem:', error);
       });

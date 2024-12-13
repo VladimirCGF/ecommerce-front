@@ -1,0 +1,295 @@
+/*.main {*/
+/*  display: inline; !* A `main` ocupa o espaço apenas necessário em linha *!*/
+/*  width: 100%;*/
+/*  padding: 20px;*/
+/*  background-color: #f9f9f9;*/
+/*  font-family: Arial, sans-serif;*/
+/*}*/
+
+/*.header {*/
+/*  display: inline-block; !* Elementos dentro da `header` ficam em bloco em linha *!*/
+/*  text-align: center;*/
+/*  margin-bottom: 20px;*/
+/*}*/
+
+/*.header p {*/
+/*  display: inline-block;*/
+/*  margin: 0 10px;*/
+/*  padding: 10px 20px;*/
+/*  border: 1px solid #ccc;*/
+/*  border-radius: 8px;*/
+/*  background-color: #e3f2fd;*/
+/*  font-weight: bold;*/
+/*}*/
+
+/*.secao {*/
+/*  display: block; !* Ocupa o espaço disponível horizontalmente *!*/
+/*  margin-bottom: 20px;*/
+/*  padding: 20px;*/
+/*  background-color: #ffffff;*/
+/*  border: 1px solid #ddd;*/
+/*  border-radius: 8px;*/
+/*}*/
+
+/*.produto-servico {*/
+/*  margin-bottom: 20px;*/
+/*  font-size: 16px;*/
+/*  color: #333;*/
+/*}*/
+
+/*.cupom {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  gap: 10px;*/
+/*}*/
+
+/*.cupom input {*/
+/*  flex: 1;*/
+/*  padding: 10px;*/
+/*  border: 1px solid #ccc;*/
+/*  border-radius: 4px;*/
+/*}*/
+
+/*.cupom button {*/
+/*  padding: 10px 20px;*/
+/*  border: none;*/
+/*  background-color: #4caf50;*/
+/*  color: white;*/
+/*  border-radius: 4px;*/
+/*  font-weight: bold;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*.pagamento {*/
+/*  display: block; !* Ocupa a largura total da seção *!*/
+/*  background-color: #f0f8ff;*/
+/*  padding: 20px;*/
+/*  border-radius: 8px;*/
+/*  border: 1px solid #ddd;*/
+/*}*/
+
+/*.pagamento .resumo,*/
+/*.pagamento .entrega,*/
+/*.pagamento .opcao {*/
+/*  margin-bottom: 20px;*/
+/*}*/
+
+/*.pagamento .entrega h6 {*/
+/*  margin-bottom: 10px;*/
+/*  font-size: 18px;*/
+/*  color: #00796b;*/
+/*}*/
+
+/*.pagamento select {*/
+/*  width: 100%;*/
+/*  padding: 10px;*/
+/*  border: 1px solid #ccc;*/
+/*  border-radius: 4px;*/
+/*  margin-bottom: 10px;*/
+/*}*/
+
+/*.pagamento .opcao button {*/
+/*  padding: 10px 20px;*/
+/*  margin-right: 10px;*/
+/*  border: none;*/
+/*  border-radius: 4px;*/
+/*  font-weight: bold;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*.pagamento .opcao button:first-child {*/
+/*  background-color: #2196f3;*/
+/*  color: white;*/
+/*}*/
+
+/*.pagamento .opcao button:last-child {*/
+/*  background-color: #ff9800;*/
+/*  color: white;*/
+/*}*/
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 0;
+}
+
+.header p {
+  margin: 0 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #bbdefb;
+  font-weight: bold;
+  color: #333;
+}
+
+.content {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+.secao {
+  flex: 1;
+  display: block;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.produto-servico {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.quantidade {
+  text-align: center;
+}
+
+.remover {
+  text-align: center;
+}
+
+.cupom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cupom input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.cupom button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pagamento {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f8ff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  gap: 20px;
+}
+
+.pagamento .resumo {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.pagamento .opcao {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.pagamento .resumo,
+.pagamento .entrega,
+.pagamento .opcao {
+  margin-bottom: 20px;
+}
+
+.pagamento .entrega h6 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #00796b;
+}
+
+.pagamento select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.pagamento .opcao button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pagamento .opcao button:first-child {
+  background-color: #2196f3;
+  color: white;
+}
+
+.pagamento .opcao button:last-child {
+  background-color: #ff9800;
+  color: white;
+}
+
+.produtos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.img img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.preco {
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.mat-icon {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.mat-icon.delete-icon {
+  color: #f44336; /* Vermelho para excluir */
+}
+
+.button-add-remove {
+  display: flex;
+  text-align: center;
+
+}

@@ -16,29 +16,31 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {RouterLink} from "@angular/router";
 import {MatCardImage} from "@angular/material/card";
+import {MatIcon} from "@angular/material/icon";
 
 
 @Component({
   selector: 'app-storage-list',
   standalone: true,
-  imports: [
-    MatButton,
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatFormField,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatInput,
-    MatPaginator,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    MatHeaderCellDef,
-    RouterLink,
-    MatCardImage
-  ],
+    imports: [
+        MatButton,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatFormField,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatInput,
+        MatPaginator,
+        MatRow,
+        MatRowDef,
+        MatTable,
+        MatHeaderCellDef,
+        RouterLink,
+        MatCardImage,
+        MatIcon
+    ],
   templateUrl: './storage-list.component.html',
   styleUrls: ['./storage-list.component.css'],
   encapsulation: ViewEncapsulation.None,

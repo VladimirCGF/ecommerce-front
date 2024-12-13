@@ -9,13 +9,14 @@ import {MatButton} from "@angular/material/button";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-state-list',
   standalone: true,
     imports: [
         NgForOf,
-        RouterLink, MatTableModule, MatPaginatorModule, MatButton, MatFormField, MatInput
+        RouterLink, MatTableModule, MatPaginatorModule, MatButton, MatFormField, MatInput, MatIcon
     ],
   templateUrl: './state-list.component.html',
   styleUrls: ['./state-list.component.css'],

@@ -27,14 +27,18 @@ import {MatButton} from "@angular/material/button";
 export class SidebarComponent implements OnInit{
   @ViewChild('drawer') public drawer!: MatDrawer;
 
-  constructor(private sideBarService: SidebarService) { }
+  constructor(private sideBarService: SidebarService) {}
 
   ngOnInit(): void {
-    this.sideBarService.sideNavToggleSubject.subscribe(
-      () => {
+    this.ngAfterViewInit();
+  }
+
+  ngAfterViewInit(): void {
+    this.sideBarService.sideNavToggleSubject.subscribe(() => {
+      if (this.drawer) {
         this.drawer.toggle();
       }
-    )
+    });
   }
 
 }

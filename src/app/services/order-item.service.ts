@@ -27,7 +27,12 @@ export class OrderItemService {
   }
 
   updateOrderItem(id: string, orderItem: OrderItem) {
-    return this.http.put(`${this.baseUrl}/orderItem/${id}`, orderItem);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    );
+    return this.http.put(`${this.baseUrl}/orderItem/${id}`, orderItem, {headers})
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   deleteOrderItem(id: string) {
@@ -38,8 +43,26 @@ export class OrderItemService {
     return this.http.get<OrderItem>(`${this.baseUrl}/orderItem/${id}`);
   }
 
+  addQuantity(id: number, quantity: number): Observable<void> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    );
+    return this.http.patch<void>(`${this.baseUrl}/orderItem/addQuantity/${id}`, quantity, {headers})
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  removeQuantity(id: number, quantity: number): Observable<void> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    );
+    return this.http.patch<void>(`${this.baseUrl}/orderItem/removeQuantity/${id}`, quantity, {headers})
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: any): Observable<never> {
     console.error('Ocorreu um erro:', error);
-    return throwError(() => new Error('Houve um problema ao inserir o Stock. Tente novamente mais tarde.'));
+    return throwError(() => new Error('Houve um problema. Tente novamente mais tarde.'));
   }
 }

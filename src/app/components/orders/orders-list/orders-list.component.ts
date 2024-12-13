@@ -16,28 +16,30 @@ import {DatePipe} from "@angular/common";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-orders-list',
   standalone: true,
-  imports: [
-    MatButton,
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatPaginator,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    RouterLink,
-    MatHeaderCellDef,
-    DatePipe,
-    MatFormField,
-    MatInput
-  ],
+    imports: [
+        MatButton,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatPaginator,
+        MatRow,
+        MatRowDef,
+        MatTable,
+        RouterLink,
+        MatHeaderCellDef,
+        DatePipe,
+        MatFormField,
+        MatInput,
+        MatIcon
+    ],
   templateUrl: './orders-list.component.html',
   styleUrls: ['./orders-list.component.css'],
 encapsulation: ViewEncapsulation.None,

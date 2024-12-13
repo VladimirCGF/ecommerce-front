@@ -1,0 +1,56 @@
+mat-toolbar {
+  display: flex;
+  align-items: center;
+  background: #0A0B0D;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+.mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align {
+  display: none !important;
+}
+
+.search-field {
+  width: 40%;
+  height: 80%;
+  min-width: 300px;
+  align-items: center;
+  background: white;
+  border-radius: 5px;
+  border: #0A0B0D;
+}
+.custom-button {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #F2A74B;
+  border-radius: 50%;
+  background-color: #F2A74B;
+  color: #0A0B0D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+}
+
+.custom-button:hover {
+  background-color: #F2A74B;
+  color: white;
+}
+
+.custom-button mat-icon {
+  font-size: 24px; /* Tamanho do ícone */
+}
+
+
+
+
+
+
+

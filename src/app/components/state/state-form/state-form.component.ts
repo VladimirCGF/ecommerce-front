@@ -71,7 +71,7 @@ export class StateFormComponent implements OnInit {
     if (this.stateForm.valid) {
       this.stateService.insertState(this.stateForm.value).subscribe(response => {
         console.log('Estado criado com sucesso:', response);
-        this.router.navigate(['/states']);
+        this.router.navigate(['/admin/states']);
       }, error => {
         console.error('Erro ao criar estado:', error);
         alert('Este código já existe')
@@ -86,7 +86,7 @@ export class StateFormComponent implements OnInit {
     if (this.stateForm.valid && this.id) {
       this.stateService.updateState(this.id, this.stateForm.value).subscribe(response => {
         console.log('Estado atualizado com sucesso:', response);
-        this.router.navigate(['/states']);
+        this.router.navigate(['/admin/states']);
       }, error => {
         console.error('Erro ao atualizar estado:', error);
       });

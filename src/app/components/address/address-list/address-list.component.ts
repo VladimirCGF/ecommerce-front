@@ -10,32 +10,35 @@ import {
 import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
 import {Address} from "../../../models/address.model";
 import {AddressService} from "../../../services/address.service";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-address-list',
   standalone: true,
-    imports: [
-        MatButton,
-        MatCell,
-        MatCellDef,
-        MatColumnDef,
-        MatHeaderCell,
-        MatHeaderRow,
-        MatHeaderRowDef,
-        MatPaginator,
-        MatRow,
-        MatRowDef,
-        MatTable,
-        RouterLink,
-        MatHeaderCellDef,
-        MatFormField,
-        MatInput
-    ],
+  imports: [
+    MatButton,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatPaginator,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    RouterLink,
+    MatHeaderCellDef,
+    MatFormField,
+    MatInput,
+    MatIconButton,
+    MatIcon
+  ],
   templateUrl: './address-list.component.html',
   styleUrls: ['./address-list.component.css'],
   encapsulation: ViewEncapsulation.None,

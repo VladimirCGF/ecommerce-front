@@ -9,10 +9,6 @@
 <div class="title">
   <h1>Lista de Pedidos</h1>
 </div>
-<div class="div-cadastro">
-  <button [routerLink]="['/admin/orders/create']" class="mr-1" mat-flat-button>Cadastrar</button>
-
-</div>
 
 <div class="table-center">
   <div class="mat-elevation-z8  table-with">
@@ -62,10 +58,12 @@
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="options">
-        <th class="text-center" mat-header-cell *matHeaderCellDef> Options</th>
-        <td class="text-center" mat-cell *matCellDef="let element">
-          <button [routerLink]="['/admin/orders/update', element.id]" class="mr-1" mat-flat-button>Edit</button>
-          <button (click)="onDelete(element.id)" color="warn" mat-flat-button>Delete</button>
+        <th mat-header-cell *matHeaderCellDef class="text-center">
+          <mat-icon [routerLink]="['/admin/orders/create']" class="add-icon mr-1">add_circle</mat-icon>
+        </th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          <mat-icon [routerLink]="['/admin/orders/update', element.id]" class="edit-icon mr-1">edit</mat-icon>
+          <mat-icon (click)="onDelete(element.id)" class="delete-icon">delete</mat-icon>
         </td>
       </ng-container>
 

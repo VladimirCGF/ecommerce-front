@@ -9,15 +9,16 @@ import {CouponService} from "../../../services/coupon.service";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {MatIcon} from "@angular/material/icon";
 
 
 @Component({
   selector: 'app-coupon-list',
   standalone: true,
-  imports: [
-    NgForOf,
-    RouterLink, MatTableModule, MatPaginatorModule, MatButton, MatFormField, MatInput
-  ],
+    imports: [
+        NgForOf,
+        RouterLink, MatTableModule, MatPaginatorModule, MatButton, MatFormField, MatInput, MatIcon
+    ],
   templateUrl: './coupon-list.component.html',
   styleUrls: ['./coupon-list.component.css'],
   encapsulation: ViewEncapsulation.None,

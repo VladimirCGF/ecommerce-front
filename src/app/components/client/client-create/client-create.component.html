@@ -29,6 +29,34 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <label for="firstName">Nome</label>
+    <input formControlName="firstName" type="text" id="firstName" placeholder="Digite o nome">
+    <div
+      *ngIf="clientForm.get('firstName')?.invalid && (clientForm.get('firstName')?.touched || clientForm.get('firstName')?.dirty)">
+      <small *ngIf="clientForm.get('firstName')?.errors?.['required']">O nome é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Sobrenome</label>
+    <input formControlName="lastName" type="text" id="lastName" placeholder="Digite o sobrenome">
+    <div
+      *ngIf="clientForm.get('lastName')?.invalid && (clientForm.get('lastName')?.touched || clientForm.get('lastName')?.dirty)">
+      <small *ngIf="clientForm.get('lastName')?.errors?.['required']">O sobrenome é obrigatório.</small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cpf">CPF</label>
+    <input formControlName="cpf" type="text" id="cpf" placeholder="Digite o CPF">
+    <div
+      *ngIf="clientForm.get('cpf')?.invalid && (clientForm.get('cpf')?.touched || clientForm.get('cpf')?.dirty)">
+      <small *ngIf="clientForm.get('cpf')?.errors?.['required']">O CPF é obrigatório.</small>
+      <small *ngIf="clientForm.get('cpf')?.errors?.['codeTaken']">O CPF já esta em uso.</small>
+    </div>
+  </div>
+
   <input type="submit" [value]="buttonName" [disabled]="clientForm.invalid">
   <button [routerLink]="['']">Cancelar</button>
 </form>

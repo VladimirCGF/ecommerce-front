@@ -9,14 +9,15 @@ import {WatchService} from "../../../services/watch.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-watch-list',
   standalone: true,
-  imports: [
-    NgForOf,
-    RouterLink, MatTableModule, MatPaginatorModule, MatButton, MatFormField, MatInput
-  ],
+    imports: [
+        NgForOf,
+        RouterLink, MatTableModule, MatPaginatorModule, MatButton, MatFormField, MatInput, MatIcon
+    ],
   templateUrl: './watch-list.component.html',
   styleUrls: ['./watch-list.component.css'],
   encapsulation: ViewEncapsulation.None,

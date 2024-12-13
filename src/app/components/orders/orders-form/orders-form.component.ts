@@ -73,7 +73,7 @@ export class OrdersFormComponent implements OnInit{
     if (this.ordersForm.valid) {
       this.ordersService.insertOrders(this.ordersForm.value).subscribe(response => {
         console.log('Orders criado com sucesso:', response);
-        this.router.navigate(['/orders']);
+        this.router.navigate(['/admin/orders']);
       }, error => {
         console.error('Erro ao criar orders:', error);
       });
@@ -87,7 +87,7 @@ export class OrdersFormComponent implements OnInit{
     if (this.ordersForm.valid && this.id) {
       this.ordersService.updateOrders(this.id, this.ordersForm.value).subscribe(response => {
         console.log('Orders atualizado com sucesso:', response);
-        this.router.navigate(['/orders']);
+        this.router.navigate(['/admin/orders']);
       }, error => {
         console.error('Erro ao atualizar orders:', error);
       });

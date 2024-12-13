@@ -21,28 +21,30 @@ import {RouterLink} from "@angular/router";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-payment-list',
   standalone: true,
-  imports: [
-    DatePipe,
-    MatButton,
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatPaginator,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    RouterLink,
-    MatHeaderCellDef,
-    MatFormField,
-    MatInput
-  ],
+    imports: [
+        DatePipe,
+        MatButton,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatPaginator,
+        MatRow,
+        MatRowDef,
+        MatTable,
+        RouterLink,
+        MatHeaderCellDef,
+        MatFormField,
+        MatInput,
+        MatIcon
+    ],
   templateUrl: './payment-list.component.html',
   styleUrls: ['./payment-list.component.css'],
   encapsulation: ViewEncapsulation.None,

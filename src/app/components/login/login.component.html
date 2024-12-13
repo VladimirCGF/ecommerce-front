@@ -16,6 +16,7 @@
       <small *ngIf="loginForm.get('password')?.errors?.['required']">A senha obrigatório.</small>
     </div>
   </div>
-
   <button mat-raised-button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+  <button (click)="onExit()" color="warn" mat-flat-button>Sair</button>
+
 </form>

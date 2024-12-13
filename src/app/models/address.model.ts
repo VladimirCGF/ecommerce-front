@@ -1,8 +1,8 @@
 export class Address {
   id!: number;
   address!: string;
-  idState!: number;
-  idMunicipality!: number;
+  state!: string;
+  municipality!: string;
   cep!: string;
-  idClient!: number;
+  idClient!: string;
 }

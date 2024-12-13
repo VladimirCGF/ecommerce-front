@@ -17,27 +17,29 @@ import {RouterLink} from "@angular/router";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-order-item-list',
   standalone: true,
-  imports: [
-    MatButton,
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatPaginator,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    MatHeaderCellDef,
-    RouterLink,
-    MatFormField,
-    MatInput
-  ],
+    imports: [
+        MatButton,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatPaginator,
+        MatRow,
+        MatRowDef,
+        MatTable,
+        MatHeaderCellDef,
+        RouterLink,
+        MatFormField,
+        MatInput,
+        MatIcon
+    ],
   templateUrl: './order-item-list.component.html',
   styleUrls: ['./order-item-list.component.css'],
 encapsulation: ViewEncapsulation.None,
@@ -49,7 +51,7 @@ export class OrderItemListComponent implements OnInit, AfterViewInit{
 
   displayedColumns: string[] = ['id', 'idOrders', 'idWatch','quantity','price', 'options'];
 
-  dataSource = new MatTableDataSource<Stock>(this.orderItem);
+  dataSource = new MatTableDataSource<OrderItem>(this.orderItem);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

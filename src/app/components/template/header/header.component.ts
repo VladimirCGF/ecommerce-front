@@ -3,8 +3,9 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {SidebarService} from "../../../services/sidebar.service";
-import {MatFormField} from "@angular/material/form-field";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -14,18 +15,24 @@ import {MatInput} from "@angular/material/input";
     MatIcon,
     MatIconButton,
     MatFormField,
-    MatInput
+    MatInput,
+    MatLabel
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
 
-  constructor(private sidebarService: SidebarService) {
+  constructor(private router: Router) {
   }
 
-  clickMenu() {
-    this.sidebarService.toggle();
+  navigateHome() {
+    this.router.navigate(['/']);
   }
+
+  navigateTo(route: string) {
+    this.router.navigate(['']);
+  }
+
 
 }

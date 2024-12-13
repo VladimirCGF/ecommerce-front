@@ -1,0 +1,65 @@
+<div class="main">
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+    <div class="content">
+      <div class="secao">
+        <div class="produto-servico" *ngFor="let element of cards()">
+          <div class="produtos">
+            <div class="img">
+              <img mat-card-image
+                   alt="Imagem"
+                   style="max-width: 100px; max-height: 100px"
+                   class="mat-mdc-card-image mdc-card__media"
+                   [src]="'http://localhost:8080/api/storage/image/download/' + element.idWatch + '/' + element.nameImage">
+            </div>
+            <div class="quantidade-remover">
+              <div class="quantidade">
+                <p>Quant.</p>
+                <div class="button-add-remove">
+                  <button mat-icon-button color="primary" (click)="decreaseQuantity(element.idOrderItem)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <p><strong>{{ element.quantity }}</strong></p>
+                  <button mat-icon-button color="primary" (click)="increaseQuantity(element.idOrderItem)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="remover">
+                <mat-icon (click)="onDelete(element.idOrderItem)" color="warn" mat-flat-button>delete</mat-icon>
+              </div>
+
+            </div>
+            <div class="preco">
+              <p><strong>Preço: R${{ element.price }}</strong></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="pagamento">
+        <div class="resumo" *ngIf="orders">
+          <p>Valor dos Produtos: <strong>R${{ orders.totalPrice }} </strong></p>
+        </div>
+        <div class="cupom">
+          <input formControlName="coupon" type="text" id="coupon" placeholder="Digite o CUPOM">
+          <div
+            *ngIf="checkoutForm.get('coupon')?.invalid && (checkoutForm.get('coupon')?.touched || checkoutForm.get('coupon')?.dirty)">
+          </div>
+        </div>
+        <div class="entrega">
+          <label for="idAddress"></label>
+          <h6><strong>ENTREGA</strong></h6>
+          <select formControlName="idAddress" id="idAddress">
+            <option value="">Selecione seu endereço</option>
+            <option *ngFor="let element of address" [value]="element.id">{{ element.address }}</option>
+          </select>
+        </div>
+        <div class="opcao">
+          <button mat-flat-button color="primary" (click)="save()"  [routerLink]="['/pagamento',]">IR PARA O PAGAMENTO</button>
+          <button [routerLink]="['/ecommerce',]">CONTINUAR COMPRANDO</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>

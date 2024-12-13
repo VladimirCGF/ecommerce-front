@@ -1,0 +1,35 @@
+<div class="main">
+
+  <div class="center">
+    <h3>MEUS DADOS</h3>
+    <div class="info">
+      <h5><strong>DADOS BÁSICOS</strong></h5>
+      <div *ngIf="client">
+        <p><strong>Email:</strong> {{ client.email }}</p>
+        <p><strong>Nome:</strong> {{ client.firstName }}</p>
+        <p><strong>Sobrenome:</strong> {{ client.lastName }}</p>
+        <p><strong>CPF:</strong> {{ client.cpf }}</p>
+      </div>
+    </div>
+
+    <div class="address">
+      <div class="header">
+        <h5><strong>ENDEREÇOS</strong></h5>
+        <button (click)="openDialog()" mat-flat-button color="primary">Adicionar</button>
+      </div>
+      <div *ngFor="let element of address">
+        <div class="button-delete">
+          <mat-icon (click)="onDelete(element.id)" class="delete-icon">delete</mat-icon>
+        </div>
+        <p><strong>Address:</strong> {{ element.address }}</p>
+        <p><strong>Estado:</strong> {{ element.state }}</p>
+        <p><strong>Município:</strong> {{ element.municipality }}</p>
+        <p><strong>CEP:</strong> {{ element.cep }}</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+

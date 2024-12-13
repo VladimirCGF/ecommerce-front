@@ -1,25 +1,24 @@
 export class LocalStorageService {
 
-  private isBrowser(): boolean {
-    return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+  constructor() {}
+
+  getItem(key: string): any {
+    const item = localStorage.getItem(key);
+    if (!item) return null;
+
+    try {
+      return JSON.parse(item);
+    } catch (e) {
+      return item;
+    }
   }
 
-  getItem(key: string): string | null {
-    if (this.isBrowser()) {
-      return localStorage.getItem(key);
-    }
-    return null;
-  }
-
-  setItem(key: string, value: string): void {
-    if (this.isBrowser()) {
-      localStorage.setItem(key, value);
-    }
+  setItem(key: string, value: any): void {
+    const serializedValue = typeof value === 'string' ? value : JSON.stringify(value);
+    localStorage.setItem(key, serializedValue);
   }
 
   removeItem(key: string): void {
-    if (this.isBrowser()) {
-      localStorage.removeItem(key);
-    }
+    localStorage.removeItem(key);
   }
 }

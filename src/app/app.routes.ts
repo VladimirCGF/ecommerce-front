@@ -29,8 +29,18 @@ import {UserTemplateComponent} from "./components/template/user-template/user-te
 import {AdminTemplateComponent} from "./components/template/admin-template/admin-template.component";
 import {ClientCreateComponent} from "./components/client/client-create/client-create.component";
 import {LoginComponent} from "./components/login/login.component";
+import {ClientMeusDadosComponent} from "./components/client/client-meus-dados/client-meus-dados.component";
+import {ClientMeusPedidosComponent} from "./components/client/client-meus-pedidos/client-meus-pedidos.component";
+import {ClientMinhaContaComponent} from "./components/client/client-minha-conta/client-minha-conta.component";
+import {ClientCarrinhoComponent} from "./components/client/client-carrinho/client-carrinho.component";
+import {ClientPagamentoComponent} from "./components/client/client-pagamento/client-pagamento.component";
+
+
 
 export const routes: Routes = [
+  {
+    path: 'login', component: LoginComponent,
+  },
   {
     path: '',
     component: UserTemplateComponent,
@@ -49,7 +59,24 @@ export const routes: Routes = [
         path: 'createClient', component: ClientCreateComponent
       },
       {
-        path: 'login', component: LoginComponent
+        path: 'minha-conta/meus-dados', component: ClientMeusDadosComponent
+      },
+      {
+        path: 'minha-conta',
+        children: [
+          { path: '', component: ClientMinhaContaComponent },
+          { path: 'meus-dados', component: ClientMeusDadosComponent },
+          { path: 'meus-pedidos', component: ClientMeusPedidosComponent }
+        ]
+      },
+      {
+        path: 'minha-conta/meus-pedidos', component: ClientMeusPedidosComponent
+      },
+      {
+        path: 'carrinho', component: ClientCarrinhoComponent
+      },
+      {
+        path: 'pagamento', component: ClientPagamentoComponent
       },
     ]
   },
@@ -59,118 +86,118 @@ export const routes: Routes = [
     title: 'Administração',
     children: [
       {
-        path: '', pathMatch: 'full', redirectTo: 'states'
+        path: '', pathMatch: 'full', redirectTo: 'states',
       },
       {
-        path: 'states', component: StateListComponent
+        path: 'states', component: StateListComponent,
       },
       {
-        path: 'states/create', component: StateFormComponent
+        path: 'states/create', component: StateFormComponent,
       },
       {
-        path: 'states/update/:id', component: StateFormComponent
+        path: 'states/update/:id', component: StateFormComponent,
       },
       {
-        path: 'municipality', component: MunicipalityListComponent
+        path: 'municipality', component: MunicipalityListComponent,
       },
       {
-        path: 'municipality/create', component: MunicipalityFormComponent
+        path: 'municipality/create', component: MunicipalityFormComponent,
       },
       {
-        path: 'municipality/update/:id', component: MunicipalityFormComponent
+        path: 'municipality/update/:id', component: MunicipalityFormComponent,
       },
       {
-        path: 'watches', component: WatchListComponent
+        path: 'watches', component: WatchListComponent,
       },
       {
-        path: 'watches/create', component: WatchFormComponent
+        path: 'watches/create', component: WatchFormComponent,
       },
       {
-        path: 'watches/update/:id', component: WatchFormComponent
+        path: 'watches/update/:id', component: WatchFormComponent,
       },
       {
-        path: 'watches/view/:id', component: WatchViewComponent
+        path: 'watches/view/:id', component: WatchViewComponent,
       },
       {
-        path: 'coupon', component: CouponListComponent
+        path: 'coupon', component: CouponListComponent,
       },
       {
-        path: 'coupon/create', component: CouponFormComponent
+        path: 'coupon/create', component: CouponFormComponent,
       },
       {
-        path: 'coupon/update/:id', component: CouponFormComponent
+        path: 'coupon/update/:id', component: CouponFormComponent,
       },
       {
-        path: 'stock', component: StockListComponent, title: 'Controle de Stock'
+        path: 'stock', component: StockListComponent, title: 'Controle de Stock',
       },
       {
-        path: 'stock/create', component: StockFormComponent, title: 'Controle de Stock'
+        path: 'stock/create', component: StockFormComponent, title: 'Controle de Stock',
       },
       {
-        path: 'stock/update/:id', component: StockFormComponent, title: 'Controle de Stock'
+        path: 'stock/update/:id', component: StockFormComponent, title: 'Controle de Stock',
       },
       {
-        path: 'client', component: ClientListComponent, title: 'Controle de Client'
+        path: 'client', component: ClientListComponent, title: 'Controle de Client',
       },
       {
-        path: 'client/create', component: ClientFormComponent, title: 'Controle de Client'
+        path: 'client/create', component: ClientFormComponent, title: 'Controle de Client',
       },
       {
-        path: 'client/update/:id', component: ClientFormComponent, title: 'Controle de Client'
+        path: 'client/update/:id', component: ClientFormComponent, title: 'Controle de Client',
       },
       {
-        path: 'address', component: AddressListComponent, title: 'Controle de Endereço'
+        path: 'address', component: AddressListComponent, title: 'Controle de Endereço',
       },
       {
-        path: 'address/create', component: AddressFormComponent, title: 'Controle de Endereço'
+        path: 'address/create', component: AddressFormComponent, title: 'Controle de Endereço',
       },
       {
-        path: 'address/update/:id', component: AddressFormComponent, title: 'Controle de Endereço'
+        path: 'address/update/:id', component: AddressFormComponent, title: 'Controle de Endereço',
       },
       {
-        path: 'employee', component: EmployeeListComponent, title: 'Controle de Funcionário'
+        path: 'employee', component: EmployeeListComponent, title: 'Controle de Funcionário',
       },
       {
-        path: 'employee/create', component: EmployeeFormComponent, title: 'Controle de Funcionário'
+        path: 'employee/create', component: EmployeeFormComponent, title: 'Controle de Funcionário',
       },
       {
-        path: 'employee/update/:id', component: EmployeeFormComponent, title: 'Controle de Funcionário'
+        path: 'employee/update/:id', component: EmployeeFormComponent, title: 'Controle de Funcionário',
       },
       {
-        path: 'orderItem', component: OrderItemListComponent, title: 'Controle de OrderItem'
+        path: 'orderItem', component: OrderItemListComponent, title: 'Controle de OrderItem',
       },
       {
-        path: 'orderItem/create', component: OrderItemFormComponent, title: 'Controle de OrderItem'
+        path: 'orderItem/create', component: OrderItemFormComponent, title: 'Controle de OrderItem',
       },
       {
-        path: 'orderItem/update/:id', component: OrderItemFormComponent, title: 'Controle de OrderItem'
+        path: 'orderItem/update/:id', component: OrderItemFormComponent, title: 'Controle de OrderItem',
       },
       {
-        path: 'orders', component: OrdersListComponent, title: 'Controle de Orders'
+        path: 'orders', component: OrdersListComponent, title: 'Controle de Orders',
       },
       {
-        path: 'orders/create', component: OrdersFormComponent, title: 'Controle de Orders'
+        path: 'orders/create', component: OrdersFormComponent, title: 'Controle de Orders',
       },
       {
-        path: 'orders/update/:id', component: OrdersFormComponent, title: 'Controle de Orders'
+        path: 'orders/update/:id', component: OrdersFormComponent, title: 'Controle de Orders',
       },
       {
-        path: 'payment', component: PaymentListComponent, title: 'Controle de Pagamento'
+        path: 'payment', component: PaymentListComponent, title: 'Controle de Pagamento',
       },
       {
-        path: 'payment/create', component: PaymentFormComponent, title: 'Controle de Pagamento'
+        path: 'payment/create', component: PaymentFormComponent, title: 'Controle de Pagamento',
       },
       {
-        path: 'payment/update/:id', component: PaymentFormComponent, title: 'Controle de Pagamento'
+        path: 'payment/update/:id', component: PaymentFormComponent, title: 'Controle de Pagamento',
       },
       {
-        path: 'storage', component: StorageListComponent, title: 'Controle de Storage'
+        path: 'storage', component: StorageListComponent, title: 'Controle de Storage',
       },
       {
-        path: 'storage/create', component: StorageFormComponent, title: 'Controle de Storage'
+        path: 'storage/create', component: StorageFormComponent, title: 'Controle de Storage',
       },
       {
-        path: 'storage/update/:id', component: StorageFormComponent, title: 'Controle de Storage'
+        path: 'storage/update/:id', component: StorageFormComponent, title: 'Controle de Storage',
       },
     ]
   }

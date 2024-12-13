@@ -15,27 +15,29 @@ import {RouterLink} from "@angular/router";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-client-list',
   standalone: true,
-  imports: [
-    MatButton,
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatPaginator,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    RouterLink,
-    MatHeaderCellDef,
-    MatFormField,
-    MatInput
-  ],
+    imports: [
+        MatButton,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatPaginator,
+        MatRow,
+        MatRowDef,
+        MatTable,
+        RouterLink,
+        MatHeaderCellDef,
+        MatFormField,
+        MatInput,
+        MatIcon
+    ],
   templateUrl: './client-list.component.html',
   styleUrls: ['./client-list.component.css'],
   encapsulation: ViewEncapsulation.None,

@@ -20,27 +20,29 @@ import {RouterLink} from "@angular/router";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-municipality-list',
   standalone: true,
-  imports: [
-    MatButton,
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatPaginator,
-    MatRow,
-    MatRowDef,
-    MatTable,
-    RouterLink,
-    MatHeaderCellDef,
-    MatFormField,
-    MatInput
-  ],
+    imports: [
+        MatButton,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatPaginator,
+        MatRow,
+        MatRowDef,
+        MatTable,
+        RouterLink,
+        MatHeaderCellDef,
+        MatFormField,
+        MatInput,
+        MatIcon
+    ],
   templateUrl: './municipality-list.component.html',
   styleUrls: ['./municipality-list.component.css'],
 encapsulation: ViewEncapsulation.None,

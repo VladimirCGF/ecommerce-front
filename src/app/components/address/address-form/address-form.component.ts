@@ -101,7 +101,7 @@ export class AddressFormComponent implements OnInit{
     if (this.addressForm.valid) {
       this.addressService.insertAddress(this.addressForm.value).subscribe(response => {
         console.log('Endereço criado com sucesso:', response);
-        this.router.navigate(['/address']);
+        this.router.navigate(['/admin/address']);
       }, error => {
         console.error('Erro ao criar endereço:', error);
       });
@@ -115,7 +115,7 @@ export class AddressFormComponent implements OnInit{
     if (this.addressForm.valid && this.id) {
       this.addressService.updateAddress(this.id, this.addressForm.value).subscribe(response => {
         console.log('Endereço atualizado com sucesso:', response);
-        this.router.navigate(['/address']);
+        this.router.navigate(['/admin/address']);
       }, error => {
         console.error('Erro ao atualizar endereço:', error);
       });

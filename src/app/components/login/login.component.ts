@@ -7,6 +7,7 @@ import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 import {NgIf} from '@angular/common';
 import {AuthService} from "../../services/auth.service";
+import {ClientService} from "../../services/client.service";
 
 @Component({
   selector: 'app-login',
@@ -31,8 +32,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
-  ) {
+    private clientService: ClientService,
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -44,17 +45,17 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
-      this.authService.loginADM(this.loginForm.value).subscribe({
-        next: (resp) => {
-          this.router.navigateByUrl('/admin');
-        },
+      this.authService.login(this.loginForm.value).subscribe({
         error: (err) => {
           console.log(err);
           this.showSnackbarTopPosition("Username ou senha inválido");
         }
       });
     }
+  }
+
+  onExit() {
+    this.authService.removeUsuarioLogado();
   }
 
   showSnackbarTopPosition(content: string) {
