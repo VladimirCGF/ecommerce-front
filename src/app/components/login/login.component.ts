@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
@@ -19,7 +19,8 @@ import {ClientService} from "../../services/client.service";
     MatButton,
     MatInput,
     MatLabel,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],

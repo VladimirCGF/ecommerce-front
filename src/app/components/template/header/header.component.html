@@ -1,9 +1,14 @@
 <mat-toolbar color="primary">
   <img src="assets/images/logo.jpg" style="height: 50px;  margin-right: 16px; cursor: pointer;"
        (click)="navigateHome()" alt="">
+
   <span class="spacer"></span>
+
+  <button mat-icon-button (click)="onExit()"
+          aria-label="Carrinho"
+          [routerLink]="['/login']"
+          class="custom-button">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+
 </mat-toolbar>
-
-
-
-

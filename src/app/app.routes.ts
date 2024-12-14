@@ -41,6 +41,16 @@ export const routes: Routes = [
     path: 'login', component: LoginComponent,
   },
   {
+    path: 'login',
+    children: [
+      { path: '', component: LoginComponent
+      },
+      {
+        path: 'createClient', component: ClientCreateComponent
+      },
+    ]
+  },
+  {
     path: '',
     component: UserTemplateComponent,
     title: 'e-commerce',
@@ -53,9 +63,6 @@ export const routes: Routes = [
       },
       {
         path: 'watches/view/:id', component: WatchViewComponent
-      },
-      {
-        path: 'createClient', component: ClientCreateComponent
       },
       {
         path: 'minha-conta/meus-dados', component: ClientMeusDadosComponent

@@ -4,23 +4,13 @@
   font-size: small;
 }
 
-.content-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-
-.content {
-  flex: 1;
-}
-
-
 .footer {
   text-align: center;
   font-size: small;
   background-color: #0A0B0D;
   color: #F2A74B;
+  position: fixed;
+  bottom: 0;
 }
 
 

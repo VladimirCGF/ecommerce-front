@@ -85,7 +85,7 @@ export class WatchFormComponent implements OnInit {
         if (this.selectedFile && this.watchForm.valid) {
           console.log(response)
           console.log('Dados enviados:', response.id, this.selectedFile.name, this.selectedFile);
-          this.storageService.insertStorage(response.id, this.selectedFile.name, this.selectedFile)
+          this.watchService.uploadImage(response.id, this.selectedFile.name, this.selectedFile)
             .subscribe({
               next: (response) => {
                 this.router.navigate(['/admin/watches']);
