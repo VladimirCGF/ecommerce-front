@@ -13,29 +13,34 @@ export class MunicipalityService {
   constructor(private http: HttpClient) {
   }
 
-  getMunicipality(): Observable<Municipality[]> {
-    return this.http.get<Municipality[]>(`${this.baseUrl}/municipality`);
+  getMunicipality(token: string): Observable<Municipality[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Municipality[]>(`${this.baseUrl}/municipality`, {headers});
   }
 
-  insertMunicipality(municipality: Municipality): Observable<Municipality> {
+  insertMunicipality(token: string, municipality: Municipality): Observable<Municipality> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}
-    );
+    ).set('Authorization', `Bearer ${token}`);
     return this.http.post<Municipality>(`${this.baseUrl}/municipality`, municipality, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateMunicipality(id: string, municipality: Municipality) {
-    return this.http.put(`${this.baseUrl}/municipality/${id}`, municipality);
+  updateMunicipality(token: string, id: string, municipality: Municipality) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/municipality/${id}`, municipality, {headers});
   }
 
-  deleteMunicipality(id: string) {
-    return this.http.delete(`${this.baseUrl}/municipality/${id}`);
+  deleteMunicipality(token: string, id: string) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/municipality/${id}`, {headers});
   }
 
-  getMunicipalityById(id: string): Observable<Municipality> {
-    return this.http.get<Municipality>(`${this.baseUrl}/municipality/${id}`);
+  getMunicipalityById(token: string, id: string): Observable<Municipality> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Municipality>(`${this.baseUrl}/municipality/${id}`, {headers});
   }
 
   getMunicipalityByIdState(idState: string): Observable<Municipality[]> {

@@ -18,13 +18,14 @@ export class ClientService {
   constructor(private http: HttpClient) {
   }
 
-  getClient(): Observable<Client[]> {
-    return this.http.get<Client[]>(`${this.baseUrl}/client`);
+  getClient(token: string): Observable<Client[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Client[]>(`${this.baseUrl}/client`, {headers});
   }
 
-  insertClient(client: Client): Observable<Client> {
+  insertClient(token: string, client: Client): Observable<Client> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}
-    );
+    ).set('Authorization', `Bearer ${token}`);
     return this.http.post<Client>(`${this.baseUrl}/client`, client, {headers})
       .pipe(
         catchError(this.handleError)
@@ -40,20 +41,28 @@ export class ClientService {
       );
   }
 
-  updateClient(id: string, client: Client) {
-    return this.http.put(`${this.baseUrl}/client/${id}`, client);
+  updateClient(token: string, id: string, client: Client) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/client/${id}`, client, {headers});
   }
 
-  deleteClient(id: string) {
-    return this.http.delete(`${this.baseUrl}/client/${id}`);
+  deleteClient(token: string, id: string) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/client/${id}`, {headers});
   }
 
-  getClientById(id: string): Observable<Client> {
-    return this.http.get<Client>(`${this.baseUrl}/client/${id}`);
+  getClientById(token: string, id: string): Observable<Client> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.get<Client>(`${this.baseUrl}/client/${id}`, {headers});
   }
 
-  getClientByEmail(email: string): Observable<Client> {
-    return this.http.get<Client>(`${this.baseUrl}/client/findByEmail/${email}`);
+  getClientByEmail(token: string, email: string): Observable<Client> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.get<Client>(`${this.baseUrl}/client/findByEmail/${email}`, {headers});
   }
 
   getClientByToken(token: string): Observable<Client> {
@@ -96,7 +105,7 @@ export class ClientService {
       );
   }
 
-  payment(token:string, payment: Payment): Observable<Payment> {
+  payment(token: string, payment: Payment): Observable<Payment> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set('Authorization', `Bearer ${token}`);
     return this.http.post<Payment>(`${this.baseUrl}/client/payment/`, payment, {headers})
       .pipe(

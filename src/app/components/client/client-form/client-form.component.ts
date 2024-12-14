@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {ClientService} from "../../../services/client.service";
 import {NgForOf, NgIf} from "@angular/common";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-client-form',
@@ -26,11 +27,13 @@ export class ClientFormComponent implements OnInit {
     private fb: FormBuilder,
     private clientService: ClientService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
   ) {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.clientForm = this.fb.group({
       id: [null],
@@ -45,7 +48,7 @@ export class ClientFormComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id");
       if (this.id) {
-        this.clientService.getClientById(this.id).subscribe(data => {
+        this.clientService.getClientById(token, this.id).subscribe(data => {
           this.clientForm.patchValue(data);
         })
         this.buttonName = "Editar";
@@ -71,11 +74,12 @@ export class ClientFormComponent implements OnInit {
   }
 
   private createClient(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Criando novo cliente');
     if (this.clientForm.valid) {
-      this.clientService.insertClient(this.clientForm.value).subscribe(response => {
+      this.clientService.insertClient(token, this.clientForm.value).subscribe(response => {
         console.log('Cliente criado com sucesso:', response);
-        this.router.navigate(['/client']);
+        this.router.navigate(['/admin/client']);
       }, error => {
         console.error('Erro ao criar cliente:', error);
       });
@@ -85,11 +89,12 @@ export class ClientFormComponent implements OnInit {
   }
 
   private updateClient(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Atualizando cliente');
     if (this.clientForm.valid && this.id) {
-      this.clientService.updateClient(this.id, this.clientForm.value).subscribe(response => {
+      this.clientService.updateClient(token, this.id, this.clientForm.value).subscribe(response => {
         console.log('Cliente atualizado com sucesso:', response);
-        this.router.navigate(['/client']);
+        this.router.navigate(['/admin/client']);
       }, error => {
         console.error('Erro ao atualizar cliente:', error);
       });

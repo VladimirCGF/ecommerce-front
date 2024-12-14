@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators,} f
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {CouponService} from '../../../services/coupon.service';
 import {NgForOf, NgIf} from "@angular/common";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 
 @Component({
@@ -22,11 +23,13 @@ export class CouponFormComponent implements OnInit {
     private fb: FormBuilder,
     private couponService: CouponService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
   ) {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.couponForm = this.fb.group({
       id: [null],
@@ -39,7 +42,7 @@ export class CouponFormComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id");
       if (this.id) {
-        this.couponService.getCouponById(this.id).subscribe(data => {
+        this.couponService.getCouponById(token, this.id).subscribe(data => {
           this.couponForm.patchValue(data);
         })
         this.buttonName = "Editar";
@@ -65,11 +68,12 @@ export class CouponFormComponent implements OnInit {
   }
 
   private createCoupon(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Criando novo cupom');
     if (this.couponForm.valid) {
-      this.couponService.insertCoupon(this.couponForm.value).subscribe(response => {
+      this.couponService.insertCoupon(token, this.couponForm.value).subscribe(response => {
         console.log('Cupom criado com sucesso:', response);
-        this.router.navigate(['/coupon']);
+        this.router.navigate(['/admin/coupon']);
       }, error => {
         console.error('Erro ao criar cupom:', error);
       });
@@ -79,11 +83,12 @@ export class CouponFormComponent implements OnInit {
   }
 
   private updateCoupon(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Atualizando cupom');
     if (this.couponForm.valid && this.id) {
-      this.couponService.updateCoupon(this.id, this.couponForm.value).subscribe(response => {
+      this.couponService.updateCoupon(token, this.id, this.couponForm.value).subscribe(response => {
         console.log('Cupom atualizado com sucesso:', response);
-        this.router.navigate(['/coupon']);
+        this.router.navigate(['/admin/coupon']);
       }, error => {
         console.error('Erro ao atualizar cupom:', error);
       });

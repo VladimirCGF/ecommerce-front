@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
 import {Employee} from "../models/employee.model";
@@ -13,29 +13,34 @@ export class EmployeeService {
   constructor(private http: HttpClient) {
   }
 
-  getEmployee(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.baseUrl}/employee`);
+  getEmployee(token: string): Observable<Employee[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Employee[]>(`${this.baseUrl}/employee`, {headers});
   }
 
-  insertEmployee(employee: Employee): Observable<Employee> {
+  insertEmployee(token: string, employee: Employee): Observable<Employee> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}
-    );
+    ).set('Authorization', `Bearer ${token}`);
     return this.http.post<Employee>(`${this.baseUrl}/employee`, employee, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateEmployee(id: string, employee: Employee) {
-    return this.http.put(`${this.baseUrl}/employee/${id}`, employee);
+  updateEmployee(token: string, id: string, employee: Employee) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/employee/${id}`, employee, {headers});
   }
 
-  deleteEmployee(id: string) {
-    return this.http.delete(`${this.baseUrl}/employee/${id}`);
+  deleteEmployee(token: string, id: string) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/employee/${id}`, {headers});
   }
 
-  getEmployeeById(id: string): Observable<Employee> {
-    return this.http.get<Employee>(`${this.baseUrl}/employee/${id}`);
+  getEmployeeById(token: string, id: string): Observable<Employee> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Employee>(`${this.baseUrl}/employee/${id}`, {headers});
   }
 
   validateEmail(id: number | null, email: string): Observable<boolean> {

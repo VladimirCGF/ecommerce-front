@@ -17,6 +17,7 @@ import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-orders-list',
@@ -56,7 +57,8 @@ export class OrdersListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private ordersService: OrdersService) {
+  constructor(private ordersService: OrdersService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngAfterViewInit(): void {
@@ -68,16 +70,18 @@ export class OrdersListComponent implements OnInit, AfterViewInit {
   }
 
   getOrders(): void {
-    this.ordersService.getOrders().subscribe(data => {
+    const token = this.localStorage.getItem('jwt_token');
+    this.ordersService.getOrders(token).subscribe(data => {
       this.orders = data;
       this.dataSource.data = this.orders;
     });
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.ordersService.deleteOrders(id).subscribe(data => this.getOrders());
+      this.ordersService.deleteOrders(token, id).subscribe(data => this.getOrders());
     }
   }
 

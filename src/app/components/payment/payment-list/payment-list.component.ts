@@ -22,6 +22,7 @@ import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-payment-list',
@@ -63,7 +64,8 @@ export class PaymentListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private paymentService: PaymentService) {
+  constructor(private paymentService: PaymentService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngOnInit(): void {
@@ -71,16 +73,18 @@ export class PaymentListComponent implements OnInit, AfterViewInit {
   }
 
   getPayment(): void {
-    this.paymentService.getPayment().subscribe(data => {
+    const token = this.localStorage.getItem('jwt_token');
+    this.paymentService.getPayment(token).subscribe(data => {
       this.payment = data;
       this.dataSource.data = this.payment;
     });
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.paymentService.deletePayment(id).subscribe(data => this.getPayment());
+      this.paymentService.deletePayment(token, id).subscribe(data => this.getPayment());
     }
   }
 

@@ -13,29 +13,37 @@ export class AddressService {
   constructor(private http: HttpClient) {
   }
 
-  getAddress(): Observable<Address[]> {
-    return this.http.get<Address[]>(`${this.baseUrl}/address`);
+  getAddress(token: string): Observable<Address[]> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.get<Address[]>(`${this.baseUrl}/address`, {headers});
   }
 
-  insertAddress(address: Address): Observable<Address> {
+  insertAddress(token: string, address: Address): Observable<Address> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}
-    );
+    ).set('Authorization', `Bearer ${token}`);
     return this.http.post<Address>(`${this.baseUrl}/address`, address, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateAddress(id: string, address: Address) {
-    return this.http.put(`${this.baseUrl}/address/${id}`, address);
+  updateAddress(token: string, id: string, address: Address) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/address/${id}`, address, {headers});
   }
 
-  deleteAddress(id: string) {
-    return this.http.delete(`${this.baseUrl}/address/${id}`);
+  deleteAddress(token:string, id: string) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/address/${id}`, {headers});
   }
 
-  getAddressById(id: string): Observable<Address> {
-    return this.http.get<Address>(`${this.baseUrl}/address/${id}`);
+  getAddressById(token: string, id: string): Observable<Address> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.get<Address>(`${this.baseUrl}/address/${id}`, {headers});
   }
 
   getMyListAddress(id: number): Observable<Address[]> {

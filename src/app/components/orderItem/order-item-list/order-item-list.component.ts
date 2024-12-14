@@ -1,15 +1,18 @@
 import {AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {Stock} from "../../../models/stock.model";
 import {
   MatCell,
   MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
   MatTableDataSource
 } from "@angular/material/table";
 import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
-import {StockService} from "../../../services/stock.service";
 import {OrderItem} from "../../../models/order-item.model";
 import {OrderItemService} from "../../../services/order-item.service";
 import {MatButton} from "@angular/material/button";
@@ -18,44 +21,46 @@ import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-order-item-list',
   standalone: true,
-    imports: [
-        MatButton,
-        MatCell,
-        MatCellDef,
-        MatColumnDef,
-        MatHeaderCell,
-        MatHeaderRow,
-        MatHeaderRowDef,
-        MatPaginator,
-        MatRow,
-        MatRowDef,
-        MatTable,
-        MatHeaderCellDef,
-        RouterLink,
-        MatFormField,
-        MatInput,
-        MatIcon
-    ],
+  imports: [
+    MatButton,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatPaginator,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    MatHeaderCellDef,
+    RouterLink,
+    MatFormField,
+    MatInput,
+    MatIcon
+  ],
   templateUrl: './order-item-list.component.html',
   styleUrls: ['./order-item-list.component.css'],
-encapsulation: ViewEncapsulation.None,
-  providers: [{ provide: MatPaginatorIntl, useClass: PaginatorIntl }],
+  encapsulation: ViewEncapsulation.None,
+  providers: [{provide: MatPaginatorIntl, useClass: PaginatorIntl}],
 })
-export class OrderItemListComponent implements OnInit, AfterViewInit{
+export class OrderItemListComponent implements OnInit, AfterViewInit {
 
   orderItem: OrderItem[] = [];
 
-  displayedColumns: string[] = ['id', 'idOrders', 'idWatch','quantity','price', 'options'];
+  displayedColumns: string[] = ['id', 'idOrders', 'idWatch', 'quantity', 'price', 'options'];
 
   dataSource = new MatTableDataSource<OrderItem>(this.orderItem);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private orderItemService: OrderItemService) {
+  constructor(private orderItemService: OrderItemService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngAfterViewInit(): void {
@@ -67,7 +72,8 @@ export class OrderItemListComponent implements OnInit, AfterViewInit{
   }
 
   getOrderItem(): void {
-    this.orderItemService.getOrderItem().subscribe(data => {
+    const token = this.localStorage.getItem('jwt_token');
+    this.orderItemService.getOrderItem(token).subscribe(data => {
       this.orderItem = data;
       this.dataSource.data = this.orderItem;
 
@@ -75,9 +81,10 @@ export class OrderItemListComponent implements OnInit, AfterViewInit{
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.orderItemService.deleteOrderItem(id).subscribe(data => this.getOrderItem());
+      this.orderItemService.deleteOrderItem(token, id).subscribe(data => this.getOrderItem());
     }
   }
 

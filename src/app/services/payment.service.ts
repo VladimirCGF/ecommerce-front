@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
-import {Stock} from "../models/stock.model";
 import {Payment} from "../models/payment.model";
 
 @Injectable({
@@ -14,29 +13,34 @@ export class PaymentService {
   constructor(private http: HttpClient) {
   }
 
-  getPayment(): Observable<Payment[]> {
-    return this.http.get<Payment[]>(`${this.baseUrl}/payment`);
+  getPayment(token: string): Observable<Payment[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Payment[]>(`${this.baseUrl}/payment`, {headers});
   }
 
-  insertPayment(payment: Payment): Observable<Payment> {
+  insertPayment(token: string, payment: Payment): Observable<Payment> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}
-    );
+    ).set('Authorization', `Bearer ${token}`);
     return this.http.post<Payment>(`${this.baseUrl}/payment`, payment, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updatePayment(id: string, payment: Payment) {
-    return this.http.put(`${this.baseUrl}/payment/${id}`, payment);
+  updatePayment(token: string, id: string, payment: Payment) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/payment/${id}`, payment, {headers});
   }
 
-  deletePayment(id: string) {
-    return this.http.delete(`${this.baseUrl}/payment/${id}`);
+  deletePayment(token: string, id: string) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/payment/${id}`, {headers});
   }
 
-  getPaymentById(id: string): Observable<Payment> {
-    return this.http.get<Payment>(`${this.baseUrl}/payment/${id}`);
+  getPaymentById(token: string, id: string): Observable<Payment> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Payment>(`${this.baseUrl}/payment/${id}`, {headers});
   }
 
   private handleError(error: any): Observable<never> {

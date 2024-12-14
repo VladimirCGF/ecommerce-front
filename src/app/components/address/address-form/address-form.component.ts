@@ -10,6 +10,7 @@ import {AddressService} from "../../../services/address.service";
 import {ClientService} from "../../../services/client.service";
 import {state} from "@angular/animations";
 import {NgForOf, NgIf} from "@angular/common";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-address-form',
@@ -39,11 +40,13 @@ export class AddressFormComponent implements OnInit{
     private municipalityService: MunicipalityService,
     private clientService: ClientService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService
   ) {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.addressForm = this.fb.group({
       id: [null],
@@ -71,7 +74,7 @@ export class AddressFormComponent implements OnInit{
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id");
       if (this.id) {
-        this.addressService.getAddressById(this.id).subscribe(data => {
+        this.addressService.getAddressById(token, this.id).subscribe(data => {
           this.addressForm.patchValue(data);
         });
         this.buttonName = "Editar";
@@ -98,8 +101,9 @@ export class AddressFormComponent implements OnInit{
 
   private createAddress(): void {
     console.log('Criando novo endereço');
+    const token = this.localStorage.getItem('jwt_token');
     if (this.addressForm.valid) {
-      this.addressService.insertAddress(this.addressForm.value).subscribe(response => {
+      this.addressService.insertAddress(token, this.addressForm.value).subscribe(response => {
         console.log('Endereço criado com sucesso:', response);
         this.router.navigate(['/admin/address']);
       }, error => {
@@ -111,9 +115,10 @@ export class AddressFormComponent implements OnInit{
   }
 
   private updateAddress(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Atualizando endereço');
     if (this.addressForm.valid && this.id) {
-      this.addressService.updateAddress(this.id, this.addressForm.value).subscribe(response => {
+      this.addressService.updateAddress(token, this.id, this.addressForm.value).subscribe(response => {
         console.log('Endereço atualizado com sucesso:', response);
         this.router.navigate(['/admin/address']);
       }, error => {

@@ -16,6 +16,7 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-client-list',
@@ -57,7 +58,8 @@ export class ClientListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private clientService: ClientService) {
+  constructor(private clientService: ClientService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngOnInit(): void {
@@ -65,7 +67,8 @@ export class ClientListComponent implements OnInit, AfterViewInit {
   }
 
   getClient(): void {
-    this.clientService.getClient().subscribe(data => {
+    const token = this.localStorage.getItem('jwt_token');
+    this.clientService.getClient(token).subscribe(data => {
       this.client = data;
       this.dataSource.data = this.client;
 
@@ -73,9 +76,10 @@ export class ClientListComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.clientService.deleteClient(id).subscribe(data => this.getClient());
+      this.clientService.deleteClient(token, id).subscribe(data => this.getClient());
     }
   }
 

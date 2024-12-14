@@ -5,6 +5,7 @@ import {MunicipalityService} from "../../../services/municipality.service";
 import {State} from "../../../models/state.model";
 import {StateService} from "../../../services/state.service";
 import {CommonModule, NgIf} from '@angular/common';
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-municipality-form',
@@ -31,11 +32,13 @@ export class MunicipalityFormComponent implements OnInit {
     private municipalityService: MunicipalityService,
     private stateService: StateService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
   ) {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.municipalityForm = this.fb.group({
       id: [null],
@@ -50,7 +53,7 @@ export class MunicipalityFormComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id");
       if (this.id) {
-        this.municipalityService.getMunicipalityById(this.id).subscribe(data => {
+        this.municipalityService.getMunicipalityById(token, this.id).subscribe(data => {
           this.municipalityForm.patchValue(data);
         })
         this.buttonName = "Editar";
@@ -64,7 +67,6 @@ export class MunicipalityFormComponent implements OnInit {
   onSubmit() {
     console.log("Submetendo formulário...");
     console.log("Formulário atual:", this.municipalityForm.value);
-
     if (this.municipalityForm.invalid) {
       console.error("Formulário inválido:", this.municipalityForm.errors);
       return;
@@ -77,9 +79,10 @@ export class MunicipalityFormComponent implements OnInit {
   }
 
   private createMunicipality(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Criando novo município');
     if (this.municipalityForm.valid) {
-      this.municipalityService.insertMunicipality(this.municipalityForm.value).subscribe(response => {
+      this.municipalityService.insertMunicipality(token, this.municipalityForm.value).subscribe(response => {
         console.log('Município criado com sucesso:', response);
         this.router.navigate(['/admin/municipality']);
       }, error => {
@@ -91,9 +94,10 @@ export class MunicipalityFormComponent implements OnInit {
   }
 
   private updateMunicipality(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Atualizando município');
     if (this.municipalityForm.valid && this.id) {
-      this.municipalityService.updateMunicipality(this.id, this.municipalityForm.value).subscribe(response => {
+      this.municipalityService.updateMunicipality(token, this.id, this.municipalityForm.value).subscribe(response => {
         console.log('Município atualizado com sucesso:', response);
         this.router.navigate(['/admin/municipality']);
       }, error => {

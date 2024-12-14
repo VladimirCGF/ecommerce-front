@@ -16,6 +16,7 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-address-list',
@@ -58,7 +59,8 @@ export class AddressListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private addressService: AddressService) {
+  constructor(private addressService: AddressService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngOnInit(): void {
@@ -66,7 +68,8 @@ export class AddressListComponent implements OnInit, AfterViewInit {
   }
 
   getClient(): void {
-    this.addressService.getAddress().subscribe(data => {
+    const token = this.localStorage.getItem('jwt_token');
+    this.addressService.getAddress(token).subscribe(data => {
       this.address = data;
       this.dataSource.data = this.address;
 
@@ -74,9 +77,10 @@ export class AddressListComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.addressService.deleteAddress(id).subscribe(data => this.getClient());
+      this.addressService.deleteAddress(token, id).subscribe(data => this.getClient());
     }
   }
 

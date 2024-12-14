@@ -10,6 +10,7 @@ import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 
 @Component({
@@ -38,7 +39,8 @@ export class CouponListComponent implements OnInit, AfterViewInit{
 
   }
 
-  constructor(private couponService: CouponService) {
+  constructor(private couponService: CouponService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngOnInit(): void {
@@ -46,16 +48,18 @@ export class CouponListComponent implements OnInit, AfterViewInit{
   }
 
   getCoupon(): void {
-    this.couponService.getCoupon().subscribe(data => {
+    const token = this.localStorage.getItem('jwt_token');
+    this.couponService.getCoupon(token).subscribe(data => {
       this.coupon = data;
       this.dataSource.data = this.coupon;
     });
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.couponService.deleteCoupon(id).subscribe(data => this.getCoupon());
+      this.couponService.deleteCoupon(token, id).subscribe(data => this.getCoupon());
     }
   }
 

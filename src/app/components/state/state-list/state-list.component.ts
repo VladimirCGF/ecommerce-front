@@ -10,6 +10,7 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-state-list',
@@ -36,7 +37,8 @@ export class StateListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private stateService: StateService) {
+  constructor(private stateService: StateService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngOnInit(): void {
@@ -44,16 +46,18 @@ export class StateListComponent implements OnInit, AfterViewInit {
   }
 
   getState(): void {
-    this.stateService.getStates().subscribe(data => {
+    const token = this.localStorage.getItem('jwt_token');
+    this.stateService.getStates(token).subscribe(data => {
       this.states = data;
       this.dataSource.data = this.states;
     });
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.stateService.deleteState(id).subscribe(data => this.getState());
+      this.stateService.deleteState(token, id).subscribe(data => this.getState());
     }
   }
 

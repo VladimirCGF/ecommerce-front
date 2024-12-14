@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {StateService} from "../../../services/state.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-state-form',
@@ -26,11 +27,13 @@ export class StateFormComponent implements OnInit {
     private fb: FormBuilder,
     private stateService: StateService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
   ) {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.stateForm = this.fb.group({
       id: [null],
@@ -41,7 +44,7 @@ export class StateFormComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id");
       if (this.id) {
-        this.stateService.getStateById(this.id).subscribe(data => {
+        this.stateService.getStateById(token, this.id).subscribe(data => {
           this.stateForm.patchValue(data);
         })
         this.buttonName = "Editar";
@@ -67,9 +70,10 @@ export class StateFormComponent implements OnInit {
   }
 
   private createState(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Criando novo cupom');
     if (this.stateForm.valid) {
-      this.stateService.insertState(this.stateForm.value).subscribe(response => {
+      this.stateService.insertState(token, this.stateForm.value).subscribe(response => {
         console.log('Estado criado com sucesso:', response);
         this.router.navigate(['/admin/states']);
       }, error => {
@@ -82,9 +86,10 @@ export class StateFormComponent implements OnInit {
   }
 
   private updateState(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Atualizando estado');
     if (this.stateForm.valid && this.id) {
-      this.stateService.updateState(this.id, this.stateForm.value).subscribe(response => {
+      this.stateService.updateState(token, this.id, this.stateForm.value).subscribe(response => {
         console.log('Estado atualizado com sucesso:', response);
         this.router.navigate(['/admin/states']);
       }, error => {

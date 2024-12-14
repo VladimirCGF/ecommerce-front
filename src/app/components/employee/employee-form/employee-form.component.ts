@@ -4,6 +4,7 @@ import {ClientService} from "../../../services/client.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {EmployeeService} from "../../../services/employee.service";
 import {NgIf} from "@angular/common";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-employee-form',
@@ -25,11 +26,13 @@ export class EmployeeFormComponent  implements OnInit{
     private fb: FormBuilder,
     private employeeService: EmployeeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
   ) {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.employeeForm = this.fb.group({
       id: [null],
@@ -43,7 +46,7 @@ export class EmployeeFormComponent  implements OnInit{
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id");
       if (this.id) {
-        this.employeeService.getEmployeeById(this.id).subscribe(data => {
+        this.employeeService.getEmployeeById(token, this.id).subscribe(data => {
           this.employeeForm.patchValue(data);
         })
         this.buttonName = "Editar";
@@ -69,11 +72,12 @@ export class EmployeeFormComponent  implements OnInit{
   }
 
   private createEmployee(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Criando novo funcionário');
     if (this.employeeForm.valid) {
-      this.employeeService.insertEmployee(this.employeeForm.value).subscribe(response => {
+      this.employeeService.insertEmployee(token, this.employeeForm.value).subscribe(response => {
         console.log('Cliente criado com sucesso:', response);
-        this.router.navigate(['/employee']);
+        this.router.navigate(['/admin/employee']);
       }, error => {
         console.error('Erro ao criar funcionário:', error);
       });
@@ -83,11 +87,12 @@ export class EmployeeFormComponent  implements OnInit{
   }
 
   private updateEmployee(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Atualizando funcionário');
     if (this.employeeForm.valid && this.id) {
-      this.employeeService.updateEmployee(this.id, this.employeeForm.value).subscribe(response => {
+      this.employeeService.updateEmployee(token, this.id, this.employeeForm.value).subscribe(response => {
         console.log('Funcionário atualizado com sucesso:', response);
-        this.router.navigate(['/employee']);
+        this.router.navigate(['/admin/employee']);
       }, error => {
         console.error('Erro ao atualizar funcionário:', error);
       });

@@ -4,6 +4,7 @@ import {CouponService} from "../../../services/coupon.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {OrdersService} from "../../../services/orders.service";
 import {NgIf} from "@angular/common";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-orders-form',
@@ -27,11 +28,13 @@ export class OrdersFormComponent implements OnInit{
     private fb: FormBuilder,
     private ordersService: OrdersService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
   ) {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.ordersForm = this.fb.group({
       id: [null],
@@ -43,7 +46,7 @@ export class OrdersFormComponent implements OnInit{
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id");
       if (this.id) {
-        this.ordersService.getOrdersById(this.id).subscribe(data => {
+        this.ordersService.getOrdersById(token, this.id).subscribe(data => {
           this.ordersForm.patchValue(data);
         })
         this.buttonName = "Editar";
@@ -69,9 +72,10 @@ export class OrdersFormComponent implements OnInit{
   }
 
   private createCoupon(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Criando novo orders');
     if (this.ordersForm.valid) {
-      this.ordersService.insertOrders(this.ordersForm.value).subscribe(response => {
+      this.ordersService.insertOrders(token, this.ordersForm.value).subscribe(response => {
         console.log('Orders criado com sucesso:', response);
         this.router.navigate(['/admin/orders']);
       }, error => {
@@ -83,9 +87,10 @@ export class OrdersFormComponent implements OnInit{
   }
 
   private updateCoupon(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Atualizando orders');
     if (this.ordersForm.valid && this.id) {
-      this.ordersService.updateOrders(this.id, this.ordersForm.value).subscribe(response => {
+      this.ordersService.updateOrders(token, this.id, this.ordersForm.value).subscribe(response => {
         console.log('Orders atualizado com sucesso:', response);
         this.router.navigate(['/admin/orders']);
       }, error => {

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {OrderItemService} from "../../../services/order-item.service";
 import {NgIf} from "@angular/common";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-order-item-form',
@@ -26,11 +27,13 @@ export class OrderItemFormComponent implements OnInit {
     private fb: FormBuilder,
     private orderItemService: OrderItemService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
   ) {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.orderItemForm = this.fb.group({
       id: [null],
@@ -44,7 +47,7 @@ export class OrderItemFormComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id");
       if (this.id) {
-        this.orderItemService.getOrderItemById(this.id).subscribe(data => {
+        this.orderItemService.getOrderItemById(token, this.id).subscribe(data => {
           this.orderItemForm.patchValue({
             id: data.id,
             idOrders: data.idOrders,
@@ -76,9 +79,10 @@ export class OrderItemFormComponent implements OnInit {
   }
 
   private createOrderItem(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Criando novo OrderItem');
     if (this.orderItemForm.valid) {
-      this.orderItemService.insertOrderItem(this.orderItemForm.value).subscribe(response => {
+      this.orderItemService.insertOrderItem(token, this.orderItemForm.value).subscribe(response => {
         console.log('OrderItem criado com sucesso:', response);
         this.router.navigate(['/admin/orderItem']);
       }, error => {
@@ -90,9 +94,10 @@ export class OrderItemFormComponent implements OnInit {
   }
 
   private updateOrderItem(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Atualizando orderItem');
     if (this.orderItemForm.valid && this.id) {
-      this.orderItemService.updateOrderItem(this.id, this.orderItemForm.value).subscribe(response => {
+      this.orderItemService.updateOrderItem(token, this.id, this.orderItemForm.value).subscribe(response => {
         console.log('OrderItem atualizado com sucesso:', response);
         this.router.navigate(['/admin/orderItem']);
       }, error => {

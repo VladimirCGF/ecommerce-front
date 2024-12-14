@@ -18,6 +18,7 @@ import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-employee-list',
@@ -59,7 +60,8 @@ export class EmployeeListComponent implements OnInit, AfterViewInit{
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private employeeService: EmployeeService) {
+  constructor(private employeeService: EmployeeService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngOnInit(): void {
@@ -67,17 +69,18 @@ export class EmployeeListComponent implements OnInit, AfterViewInit{
   }
 
   getEmployee(): void {
-    this.employeeService.getEmployee().subscribe(data => {
+    const token = this.localStorage.getItem('jwt_token');
+    this.employeeService.getEmployee(token).subscribe(data => {
       this.employee = data;
       this.dataSource.data = this.employee;
-
     });
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.employeeService.deleteEmployee(id).subscribe(data => this.getEmployee());
+      this.employeeService.deleteEmployee(token, id).subscribe(data => this.getEmployee());
     }
   }
 

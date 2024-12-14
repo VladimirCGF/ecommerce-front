@@ -21,6 +21,7 @@ import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-municipality-list',
@@ -62,7 +63,8 @@ export class MunicipalityListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private municipalityService: MunicipalityService) {
+  constructor(private municipalityService: MunicipalityService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngOnInit(): void {
@@ -70,7 +72,8 @@ export class MunicipalityListComponent implements OnInit, AfterViewInit {
   }
 
   getMunicipality(): void {
-    this.municipalityService.getMunicipality().subscribe(data => {
+    const token = this.localStorage.getItem('jwt_token');
+    this.municipalityService.getMunicipality(token).subscribe(data => {
       this.municipality = data;
       this.dataSource.data = this.municipality;
 
@@ -78,9 +81,10 @@ export class MunicipalityListComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.municipalityService.deleteMunicipality(id).subscribe(data => this.getMunicipality());
+      this.municipalityService.deleteMunicipality(token, id).subscribe(data => this.getMunicipality());
     }
   }
 

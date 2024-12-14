@@ -12,29 +12,34 @@ export class StateService {
   constructor(private http: HttpClient) {
   }
 
-  getStates(): Observable<State[]> {
-    return this.http.get<State[]>(`${this.baseUrl}/states`);
+  getStates(token: string): Observable<State[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<State[]>(`${this.baseUrl}/states`, {headers});
   }
 
-  insertState(state: State): Observable<State> {
+  insertState(token: string, state: State): Observable<State> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}
-    );
+    ).set('Authorization', `Bearer ${token}`);
     return this.http.post<State>(`${this.baseUrl}/states`, state, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateState(id: string, state: State) {
-    return this.http.put(`${this.baseUrl}/states/${id}`, state);
+  updateState(token: string, id: string, state: State) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/states/${id}`, state, {headers});
   }
 
-  deleteState(id: string) {
-    return this.http.delete(`${this.baseUrl}/states/${id}`);
+  deleteState(token: string, id: string) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/states/${id}`, {headers});
   }
 
-  getStateById(id: string): Observable<State> {
-    return this.http.get<State>(`${this.baseUrl}/states/${id}`);
+  getStateById(token: string, id: string): Observable<State> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<State>(`${this.baseUrl}/states/${id}`, {headers});
   }
 
   validateName(id: number | null, name: string): Observable<boolean> {

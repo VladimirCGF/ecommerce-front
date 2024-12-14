@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
 import {Orders} from "../models/orders.model";
@@ -13,29 +13,34 @@ export class OrdersService {
   constructor(private http: HttpClient) {
   }
 
-  getOrders(): Observable<Orders[]> {
-    return this.http.get<Orders[]>(`${this.baseUrl}/orders`);
+  getOrders(token: string): Observable<Orders[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Orders[]>(`${this.baseUrl}/orders`, {headers});
   }
 
-  insertOrders(orders: Orders): Observable<Orders> {
+  insertOrders(token: string, orders: Orders): Observable<Orders> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}
-    );
+    ).set('Authorization', `Bearer ${token}`);
     return this.http.post<Orders>(`${this.baseUrl}/orders`, orders, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateOrders(id: string, orders: Orders) {
-    return this.http.put(`${this.baseUrl}/orders/${id}`, orders);
+  updateOrders(token: string, id: string, orders: Orders) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/orders/${id}`, orders, {headers});
   }
 
-  deleteOrders(id: string) {
-    return this.http.delete(`${this.baseUrl}/orders/${id}`);
+  deleteOrders(token: string, id: string) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/orders/${id}`, {headers});
   }
 
-  getOrdersById(id: string): Observable<Orders> {
-    return this.http.get<Orders>(`${this.baseUrl}/orders/${id}`);
+  getOrdersById(token: string, id: string): Observable<Orders> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Orders>(`${this.baseUrl}/orders/${id}`, {headers});
   }
 
   private handleError(error: any): Observable<never> {
