@@ -47,7 +47,7 @@ export class StateListComponent implements OnInit, AfterViewInit {
 
   getState(): void {
     const token = this.localStorage.getItem('jwt_token');
-    this.stateService.getStates(token).subscribe(data => {
+    this.stateService.getStates().subscribe(data => {
       this.states = data;
       this.dataSource.data = this.states;
     });

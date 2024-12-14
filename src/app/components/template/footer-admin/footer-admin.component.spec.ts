@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StockFormComponent } from './stock-form.component';
+import { FooterAdminComponent } from './footer-admin.component';
 
-describe('StockFormComponent', () => {
-  let component: StockFormComponent;
-  let fixture: ComponentFixture<StockFormComponent>;
+describe('FooterAdminComponent', () => {
+  let component: FooterAdminComponent;
+  let fixture: ComponentFixture<FooterAdminComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StockFormComponent]
+      imports: [FooterAdminComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(StockFormComponent);
+    fixture = TestBed.createComponent(FooterAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

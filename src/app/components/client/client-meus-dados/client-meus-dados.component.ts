@@ -8,7 +8,7 @@ import {MatCardImage} from "@angular/material/card";
 import {CommonModule, NgForOf, NgIf} from "@angular/common";
 import {AddressService} from "../../../services/address.service";
 import {Address} from "../../../models/address.model";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {AddressDialogComponent} from "../../address/address-dialog/address-dialog.component";
 import {MatIcon} from "@angular/material/icon";
@@ -33,9 +33,12 @@ import {MatIcon} from "@angular/material/icon";
 export class ClientMeusDadosComponent implements OnInit {
 
   client: Client | undefined;
+  trocarSenhaForm!: FormGroup;
   address: Address[] = [];
+  buttonName: string = "Alterar senha";
 
   constructor(private clientService: ClientService,
+              private fb: FormBuilder,
               private route: ActivatedRoute,
               private addressService: AddressService,
               private localStorage: LocalStorageService,
@@ -44,6 +47,10 @@ export class ClientMeusDadosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.trocarSenhaForm = this.fb.group({
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    }, {validator: this.passwordMatchValidator});
     this.getClient();
   }
 
@@ -58,6 +65,31 @@ export class ClientMeusDadosComponent implements OnInit {
       })
     }
   }
+
+  onSubmit() {
+    console.log("Submetendo formulário...");
+    console.log("Formulário atual:", this.trocarSenhaForm.value);
+
+    if (this.trocarSenhaForm.invalid) {
+      console.error("Formulário inválido:", this.trocarSenhaForm.errors);
+      return;
+    }
+    this.trocarSenha();
+  }
+
+  trocarSenha(){
+    const token = this.localStorage.getItem('jwt_token');
+    if (this.trocarSenhaForm.valid) {
+      this.clientService.trocarSenha(token, this.trocarSenhaForm.value).subscribe(response => {
+        console.log('Senha trocada com sucesso:', response);
+              }, error => {
+        console.error('Erro ao trocar senha:', error);
+      });
+    } else {
+      console.log('Formulário inválido:', this.trocarSenhaForm.errors);
+    }
+  }
+
 
   openDialog() {
     const dialogRef = this.dialog.open(AddressDialogComponent, {
@@ -84,6 +116,10 @@ export class ClientMeusDadosComponent implements OnInit {
     }
   }
 
-
+  passwordMatchValidator(formGroup: FormGroup) {
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : {passwordMismatch: true};
+  }
 
 }

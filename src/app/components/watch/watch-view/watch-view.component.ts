@@ -17,6 +17,7 @@ import {MatButton} from "@angular/material/button";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatTableDataSource} from "@angular/material/table";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-watch-view',
@@ -52,16 +53,18 @@ export class WatchViewComponent implements OnInit {
     private watchService: WatchService,
     private storageService: StorageService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
   ) {
   }
 
   ngOnInit(): void {
-   this.getWatchById();
-   this.getStorageAllByWatchId();
+    this.getWatchById();
+    this.getStorageAllByWatchId();
   }
 
   getWatchById() {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.watchService.getWatchById(this.id).subscribe({
       next: (data) => {
@@ -72,7 +75,7 @@ export class WatchViewComponent implements OnInit {
     });
   }
 
-  getStorageAllByWatchId(){
+  getStorageAllByWatchId() {
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.storageService.getStorageAllByWatchId(this.id).subscribe({
       next: (data) => {

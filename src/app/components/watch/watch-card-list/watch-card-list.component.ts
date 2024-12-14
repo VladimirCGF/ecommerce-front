@@ -9,13 +9,19 @@ import {
   MatCardImage,
   MatCardTitle
 } from "@angular/material/card";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {NgForOf, NgIf, SlicePipe} from "@angular/common";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink, RouterOutlet} from "@angular/router";
 import {ClientService} from "../../../services/client.service";
 import {Client} from "../../../models/client.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LocalStorageService} from "../../../services/local-storage.service";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatIcon} from "@angular/material/icon";
+import {HeaderComponent} from "../../template/header/header.component";
+import {FooterComponent} from "../../template/footer/footer.component";
+import {MatToolbar} from "@angular/material/toolbar";
 
 
 type Card = {
@@ -39,7 +45,13 @@ type Card = {
     NgForOf,
     RouterLink,
     SlicePipe,
-    NgIf
+    NgIf,
+    MatFormField,
+    MatIconButton,
+    MatInput,
+    MatIcon,
+    MatLabel,
+
   ],
   templateUrl: './watch-card-list.component.html',
   styleUrls: ['./watch-card-list.component.css']
@@ -55,7 +67,8 @@ export class WatchCardListComponent implements OnInit{
               private localStorage: LocalStorageService,
               private clientService: ClientService,
               private watchService: WatchService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router,) {
   }
 
   ngOnInit(): void {
@@ -116,6 +129,22 @@ export class WatchCardListComponent implements OnInit{
       this.watches = data;
       this.loadCards();
     });
+  }
+
+  onSearch(searchTerm: string) {
+    if (searchTerm.trim()) {
+      this.watchService.getWatchesByName(searchTerm).subscribe({
+        next: result => {
+          this.watches = result;
+        }
+      })
+      this.router.navigate(['/ecommerce'], {
+        queryParams: {
+          search: searchTerm.trim()
+        }
+      });
+      console.log('Termo de busca:', searchTerm);
+    }
   }
 
 

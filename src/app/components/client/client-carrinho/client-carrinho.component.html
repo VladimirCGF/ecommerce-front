@@ -2,6 +2,36 @@
   <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
     <div class="content">
       <div class="secao">
+<!--        <div class="produtos">-->
+<!--          <div class="img">-->
+<!--            <img mat-card-image-->
+<!--                 alt="Imagem"-->
+<!--                 style="max-width: 100px; max-height: 100px"-->
+<!--                 class="mat-mdc-card-image mdc-card__media"-->
+<!--                 [src]="'http://localhost:8080/api/storage/image/download/4/relogio.png'">-->
+
+<!--          </div>-->
+<!--          <div class="quantidade-remover">-->
+<!--            <div class="quantidade">-->
+<!--              <p>Quant.</p>-->
+<!--              <div class="button-add-remove">-->
+<!--                <button mat-icon-button color="primary">-->
+<!--                  <mat-icon>remove</mat-icon>-->
+<!--                </button>-->
+<!--                <p><strong>{{ 1 }}</strong></p>-->
+<!--                <button mat-icon-button color="primary" >-->
+<!--                  <mat-icon>add</mat-icon>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="remover">-->
+<!--              <mat-icon  color="warn" mat-flat-button>delete</mat-icon>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="preco">-->
+<!--            <p><strong>Preço: R${{ 111 }}</strong></p>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="produto-servico" *ngFor="let element of cards()">
           <div class="produtos">
             <div class="img">
@@ -10,6 +40,7 @@
                    style="max-width: 100px; max-height: 100px"
                    class="mat-mdc-card-image mdc-card__media"
                    [src]="'http://localhost:8080/api/storage/image/download/' + element.idWatch + '/' + element.nameImage">
+
             </div>
             <div class="quantidade-remover">
               <div class="quantidade">
@@ -27,7 +58,6 @@
               <div class="remover">
                 <mat-icon (click)="onDelete(element.idOrderItem)" color="warn" mat-flat-button>delete</mat-icon>
               </div>
-
             </div>
             <div class="preco">
               <p><strong>Preço: R${{ element.price }}</strong></p>
@@ -55,11 +85,11 @@
           </select>
         </div>
         <div class="opcao">
-          <button mat-flat-button color="primary" (click)="save()"  [routerLink]="['/pagamento',]">IR PARA O PAGAMENTO</button>
+          <button mat-flat-button color="primary" (click)="save()" [routerLink]="['/pagamento',]">IR PARA O PAGAMENTO
+          </button>
           <button [routerLink]="['/ecommerce',]">CONTINUAR COMPRANDO</button>
         </div>
       </div>
     </div>
   </form>
-
 </div>

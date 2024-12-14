@@ -32,7 +32,7 @@ import {LocalStorageService} from "../../../services/local-storage.service";
   templateUrl: './user-template.component.html',
   styleUrl: './user-template.component.css'
 })
-export class UserTemplateComponent implements OnInit{
+export class UserTemplateComponent implements OnInit {
 
   watches: Watch[] = [];
 
@@ -44,32 +44,31 @@ export class UserTemplateComponent implements OnInit{
 
 
   ngOnInit(): void {
-
   }
 
   navigateHome() {
     this.router.navigate(['/ecommerce']);
   }
 
-  onSearch(searchTerm: string) {
-    if (searchTerm.trim()) {
-      this.watchService.getWatchesByName(searchTerm).subscribe({
-        next: result => {
-          this.watches = result;
-        }
-      })
-      this.router.navigate(['/ecommerce'], {
-        queryParams: {
-          search: searchTerm.trim()
-        }
-      });
-      console.log('Termo de busca:', searchTerm);
-    }
-  }
+  // onSearch(searchTerm: string) {
+  //   if (searchTerm.trim()) {
+  //     this.watchService.getWatchesByName(searchTerm).subscribe({
+  //       next: result => {
+  //         this.watches = result;
+  //       }
+  //     })
+  //     this.router.navigate(['/ecommerce'], {
+  //       queryParams: {
+  //         search: searchTerm.trim()
+  //       }
+  //     });
+  //     console.log('Termo de busca:', searchTerm);
+  //   }
+  // }
 
-  navigateTo(route: string) {
-    this.router.navigate(['']);
-  }
+  // navigateTo(route: string) {
+  //   // this.router.navigate(['']);
+  // }
 
   onExit() {
     const confirmation = confirm('Você tem certeza que deseja sair?');
@@ -80,9 +79,9 @@ export class UserTemplateComponent implements OnInit{
 
   login() {
     const token = this.localStorage.getItem('jwt_token');
-    if (!token){
+    if (!token) {
       this.router.navigate(['/login']);
-    }else {
+    } else {
       this.router.navigate(['/minha-conta']);
     }
   }

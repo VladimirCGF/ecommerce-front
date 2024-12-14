@@ -10,14 +10,15 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {PaginatorIntl} from "../../../services/paginator-intl.service";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-watch-list',
   standalone: true,
-    imports: [
-        NgForOf,
-        RouterLink, MatTableModule, MatPaginatorModule, MatButton, MatFormField, MatInput, MatIcon
-    ],
+  imports: [
+    NgForOf,
+    RouterLink, MatTableModule, MatPaginatorModule, MatButton, MatFormField, MatInput, MatIcon
+  ],
   templateUrl: './watch-list.component.html',
   styleUrls: ['./watch-list.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -37,7 +38,8 @@ export class WatchListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private watchService: WatchService) {
+  constructor(private watchService: WatchService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngOnInit(): void {
@@ -52,9 +54,10 @@ export class WatchListComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.watchService.deleteWatch(id).subscribe(data => this.getWatches());
+      this.watchService.deleteWatch(token, id).subscribe(data => this.getWatches());
     }
   }
 

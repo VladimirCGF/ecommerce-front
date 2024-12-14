@@ -28,8 +28,35 @@
       </div>
     </div>
 
+    <div class="address">
+      <div class="header">
+        <h5><strong>ALTERAR SENHA</strong></h5>
+      </div>
+      <form [formGroup]="trocarSenhaForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input formControlName="password" type="password" id="password" placeholder="Digite o password">
+          <div
+            *ngIf="trocarSenhaForm.get('password')?.invalid && (trocarSenhaForm.get('password')?.touched || trocarSenhaForm.get('password')?.dirty)">
+            <small *ngIf="trocarSenhaForm.get('password')?.errors?.['required']">A senha obrigatório.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input formControlName="confirmPassword" type="password" id="confirmPassword"
+                 placeholder="Confirme sua senha">
+          <div
+            *ngIf="trocarSenhaForm.errors?.['passwordMismatch'] && (trocarSenhaForm.get('confirmPassword')?.touched || trocarSenhaForm.get('confirmPassword')?.dirty)">
+            <small>As senhas não correspondem.</small>
+          </div>
+        </div>
+        <input type="submit" [value]="buttonName" [disabled]="trocarSenhaForm.invalid">
+      </form>
+    </div>
   </div>
 </div>
+
 
 
 

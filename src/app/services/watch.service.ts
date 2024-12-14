@@ -17,42 +17,47 @@ export class WatchService {
     return this.http.get<Watch[]>(`${this.baseUrl}/watches`);
   }
 
-  insertWatch(watch: Watch): Observable<Watch> {
+  insertWatch(token: string, watch: Watch): Observable<Watch> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}
-    );
+    ).set('Authorization', `Bearer ${token}`);
     return this.http.post<Watch>(`${this.baseUrl}/watches`, watch, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateWatch(id: string, watch: Watch) {
-    return this.http.put(`${this.baseUrl}/watches/${id}`, watch);
+  updateWatch(token: string, id: string, watch: Watch) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/watches/${id}`, watch, {headers});
   }
 
-  deleteWatch(id: string) {
-    return this.http.delete(`${this.baseUrl}/watches/${id}`);
+  deleteWatch(token: string, id: string) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/watches/${id}`, {headers});
   }
 
   getWatchById(id: string): Observable<Watch> {
     return this.http.get<Watch>(`${this.baseUrl}/watches/view/${id}`);
   }
 
-  getWatchesByIdOrder(id: number): Observable<Watch[]> {
-    return this.http.get<Watch[]>(`${this.baseUrl}/watches/by-order/${id}`);
-  }
+  // getWatchesByIdOrder(id: number): Observable<Watch[]> {
+  //   return this.http.get<Watch[]>(`${this.baseUrl}/watches/by-order/${id}`);
+  // }
 
   getWatchesByName(name: string): Observable<Watch[]> {
     return this.http.get<Watch[]>(`${this.baseUrl}/watches/findByName/${name}`);
   }
 
-  uploadImage(idWatch: string, name: string, file: File): Observable<any> {
+  uploadImage(token: string, idWatch: string, name: string, file: File): Observable<any> {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
     const formData = new FormData();
     formData.append('idWatch', idWatch);
     formData.append('nameImage', name);
     formData.append('imagem', file);
 
-    return this.http.put(`${this.baseUrl}/watches/image/upload/${idWatch}`, formData).pipe(
+    return this.http.put(`${this.baseUrl}/watches/image/upload/${idWatch}`, formData, {headers}).pipe(
       catchError((error) => {
         console.error('Erro no upload:', error);
         return throwError(error);

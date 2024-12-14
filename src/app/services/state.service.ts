@@ -12,9 +12,8 @@ export class StateService {
   constructor(private http: HttpClient) {
   }
 
-  getStates(token: string): Observable<State[]> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<State[]>(`${this.baseUrl}/states`, {headers});
+  getStates(): Observable<State[]> {
+    return this.http.get<State[]>(`${this.baseUrl}/states`);
   }
 
   insertState(token: string, state: State): Observable<State> {

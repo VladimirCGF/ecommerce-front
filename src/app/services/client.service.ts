@@ -70,6 +70,12 @@ export class ClientService {
     return this.http.get<Client>(`${this.baseUrl}/client/me`, {headers});
   }
 
+  trocarSenha(token: string, client: Client) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}
+    ).set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/client/trocar-senha`, client, {headers});
+  }
+
   addAddress(token: string, address: Address): Observable<Client> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set('Authorization', `Bearer ${token}`);
     return this.http.post<Client>(`${this.baseUrl}/client/addAddress`, address, {headers})
@@ -84,7 +90,7 @@ export class ClientService {
   }
 
   addItem(token: string, item: { quantity: any; idWatch: any }): Observable<void> {
-    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<void>(`${this.baseUrl}/client/addItem`, item, {headers})
       .pipe(
         catchError(this.handleError)
@@ -92,13 +98,12 @@ export class ClientService {
   }
 
   removeItem(token: string, idOrderItem: number): Observable<void> {
-    const headers = new HttpHeaders({'Content-Type': 'application/json'})
-      .set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.put<void>(`${this.baseUrl}/client/removeItem/${idOrderItem}`, token, {headers});
   }
 
   checkout(token: string, order: Orders): Observable<Orders> {
-    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<Orders>(`${this.baseUrl}/client/checkout/`, order, {headers})
       .pipe(
         catchError(this.handleError)
@@ -106,7 +111,7 @@ export class ClientService {
   }
 
   payment(token: string, payment: Payment): Observable<Payment> {
-    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<Payment>(`${this.baseUrl}/client/payment/`, payment, {headers})
       .pipe(
         catchError(this.handleError)

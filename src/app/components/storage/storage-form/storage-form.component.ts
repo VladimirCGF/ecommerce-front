@@ -5,6 +5,7 @@ import {StorageService} from "../../../services/storage.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {Watch} from "../../../models/watch.model";
 import {WatchService} from "../../../services/watch.service";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-storage-form',
@@ -32,11 +33,13 @@ export class StorageFormComponent implements OnInit {
     private storageService: StorageService,
     private watchService: WatchService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
   ) {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.storageForm = this.fb.group({
       id: [null],
@@ -52,7 +55,7 @@ export class StorageFormComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id");
       if (this.id) {
-        this.storageService.getStorageById(this.id).subscribe(data => {
+        this.storageService.getStorageById(token, this.id).subscribe(data => {
           this.storageForm.patchValue(data);
         })
         this.buttonName = "Editar";
@@ -73,12 +76,13 @@ export class StorageFormComponent implements OnInit {
   }
 
   private createStorage(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Criando novo Armazenamento');
     if (this.selectedFile && this.storageForm.valid) {
       const idWatch = this.storageForm.value.idWatch;
       const name = this.storageForm.value.name;
       console.log('Dados enviados:', idWatch, name, this.selectedFile);
-      this.storageService.insertStorage(idWatch, name, this.selectedFile)
+      this.storageService.insertStorage(token, idWatch, name, this.selectedFile)
         .subscribe({
           next: (response) => {
             console.log('Upload successful:', response);

@@ -3,8 +3,13 @@ import {
   MatCell,
   MatCellDef,
   MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
   MatTableDataSource
 } from "@angular/material/table";
 import {MatPaginator, MatPaginatorIntl} from "@angular/material/paginator";
@@ -17,30 +22,31 @@ import {MatInput} from "@angular/material/input";
 import {RouterLink} from "@angular/router";
 import {MatCardImage} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 
 @Component({
   selector: 'app-storage-list',
   standalone: true,
-    imports: [
-        MatButton,
-        MatCell,
-        MatCellDef,
-        MatColumnDef,
-        MatFormField,
-        MatHeaderCell,
-        MatHeaderRow,
-        MatHeaderRowDef,
-        MatInput,
-        MatPaginator,
-        MatRow,
-        MatRowDef,
-        MatTable,
-        MatHeaderCellDef,
-        RouterLink,
-        MatCardImage,
-        MatIcon
-    ],
+  imports: [
+    MatButton,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatFormField,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatInput,
+    MatPaginator,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    MatHeaderCellDef,
+    RouterLink,
+    MatCardImage,
+    MatIcon
+  ],
   templateUrl: './storage-list.component.html',
   styleUrls: ['./storage-list.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -60,7 +66,8 @@ export class StorageListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private storageService: StorageService) {
+  constructor(private storageService: StorageService,
+              private localStorage: LocalStorageService,) {
   }
 
   ngOnInit(): void {
@@ -68,6 +75,7 @@ export class StorageListComponent implements OnInit, AfterViewInit {
   }
 
   getStorages(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.storageService.getStorages().subscribe(data => {
       this.storages = data;
       this.dataSource.data = this.storages;
@@ -75,9 +83,10 @@ export class StorageListComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(id: string) {
+    const token = this.localStorage.getItem('jwt_token');
     const confirmation = confirm('Você tem certeza que deseja deletar este item?');
     if (confirmation) {
-      this.storageService.deleteStorage(id).subscribe(data => this.getStorages());
+      this.storageService.deleteStorage(token, id).subscribe(data => this.getStorages());
     }
   }
 

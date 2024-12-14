@@ -1,5 +1,5 @@
 .container {
-  height: 80vh;
+  height: 100vh;
 }
 
 .drawer {
@@ -33,10 +33,7 @@
   background-color: #7986cb;
 }
 
-/*mat-drawer-content {*/
-/*  height: 100%;*/
-/*  overflow: hidden;*/
-/*}*/
+
 
 
 

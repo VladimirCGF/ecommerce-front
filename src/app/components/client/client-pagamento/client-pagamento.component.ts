@@ -76,7 +76,7 @@ export class ClientPagamentoComponent {
       this.clientService.getClientByToken(token).subscribe({
         next: client => {
           this.client = client;
-          this.getOrders(token);
+          this.getOrders();
           this.paymentForm = this.fb.group({
             paymentMethod: ['', Validators.required],
             idOrders: ['', Validators.required]
@@ -86,7 +86,8 @@ export class ClientPagamentoComponent {
     }
   }
 
-  getOrders(token: string) {
+  getOrders() {
+    const token = this.localStorage.getItem('jwt_token');
     this.clientService.getMyOrders(token).pipe(
       map(orders => {
         return orders.find(order => order.status === 'Esperando Pagamento');
@@ -102,7 +103,6 @@ export class ClientPagamentoComponent {
   save() {
     const token = this.localStorage.getItem('jwt_token');
     if (this.paymentForm.valid) {
-      const token = this.localStorage.getItem('jwt_token');
       this.clientService.payment(token, this.paymentForm.value).subscribe(response => {
         console.log('Payment criado com sucesso:', response);
       }, error => {

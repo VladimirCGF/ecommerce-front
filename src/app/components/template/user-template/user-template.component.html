@@ -5,14 +5,6 @@
 
   <span class="spacer"></span>
 
-  <mat-form-field appearance="outline" class="search-field">
-    <mat-label>Buscar</mat-label>
-    <input matInput (keyup.enter)="onSearch(searchInput.value)" #searchInput>
-    <button mat-icon-button matSuffix aria-label="Search" (click)="onSearch(searchInput.value)">
-      <mat-icon>search</mat-icon>
-    </button>
-  </mat-form-field>
-
   <span class="spacer"></span>
 
   <button mat-icon-button
@@ -36,7 +28,5 @@
           class="custom-button">
     <mat-icon>exit_to_app</mat-icon>
   </button>
-
 </mat-toolbar>
-<router-outlet></router-outlet>
 <app-footer></app-footer>

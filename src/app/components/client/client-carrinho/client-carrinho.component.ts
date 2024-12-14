@@ -3,9 +3,9 @@ import {Client} from "../../../models/client.model";
 import {Orders} from "../../../models/orders.model";
 import {ClientService} from "../../../services/client.service";
 import {LocalStorageService} from "../../../services/local-storage.service";
-import {DatePipe, NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf, SlicePipe} from "@angular/common";
 import {map} from "rxjs";
-import {MatCardImage} from "@angular/material/card";
+import {MatCard, MatCardContent, MatCardFooter, MatCardImage, MatCardTitle} from "@angular/material/card";
 import {AddressService} from "../../../services/address.service";
 import {Address} from "../../../models/address.model";
 import {OrderItem} from "../../../models/order-item.model";
@@ -18,6 +18,7 @@ import {Router, RouterLink} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
+import {OrderList} from "../../../models/order-list.model";
 
 type Card = {
   idOrderItem: number;
@@ -43,7 +44,12 @@ type Card = {
     MatIcon,
     MatIconButton,
     MatFormField,
-    MatInput
+    MatInput,
+    MatCard,
+    MatCardContent,
+    MatCardFooter,
+    MatCardTitle,
+    SlicePipe
   ],
   templateUrl: './client-carrinho.component.html',
   styleUrl: './client-carrinho.component.css'
@@ -57,7 +63,7 @@ export class ClientCarrinhoComponent implements OnInit {
   orderItems: OrderItem[] = [];
   address: Address[] = [];
   watches: Watch[] = [];
-  cards = signal<Card[]>([]);
+  cards = signal<OrderList[]>([]);
 
   constructor(private fb: FormBuilder,
               private clientService: ClientService,
@@ -74,7 +80,7 @@ export class ClientCarrinhoComponent implements OnInit {
     this.checkoutForm = this.fb.group({
       idClient: [this.client?.id, Validators.required],
       idAddress: ['', Validators.required],
-      quantity:['', Validators.min(1)],
+      quantity: ['', Validators.min(1)],
       coupon: [null,]
     });
   }
@@ -98,7 +104,7 @@ export class ClientCarrinhoComponent implements OnInit {
           this.checkoutForm = this.fb.group({
             client: [this.client?.id, Validators.required],
             idAddress: ['', Validators.required],
-            quantity:['', Validators.min(1)],
+            quantity: ['', Validators.min(1)],
             coupon: [null]
           });
           this.checkoutForm.patchValue({client: client.id});
@@ -107,6 +113,30 @@ export class ClientCarrinhoComponent implements OnInit {
       });
     }
   }
+
+  // getOrders(token: string) {
+  //   this.clientService.getMyOrders(token).pipe(
+  //     map(orders => {
+  //       return orders.find(order => order.status === 'Pendente');
+  //     })
+  //   ).subscribe(pendingOrder => {
+  //     if (pendingOrder) {
+  //       this.orders = pendingOrder;
+  //       this.orderItems = pendingOrder.orderItems || [];
+  //       this.loadCards();
+  //       console.log(pendingOrder);
+  //       console.log(this.orderItems);
+  //
+  //       // this.watchService.getWatchesByIdOrder(pendingOrder.id).subscribe(watches => {
+  //       //   this.watches = watches;
+  //       // });
+  //     } else {
+  //       this.orderItems = [];
+  //       // this.watches = [];
+  //     }
+  //   });
+  //
+  // }
 
   getOrders(token: string) {
     this.clientService.getMyOrders(token).pipe(
@@ -117,31 +147,33 @@ export class ClientCarrinhoComponent implements OnInit {
       if (pendingOrder) {
         this.orders = pendingOrder;
         this.orderItems = pendingOrder.orderItems || [];
-        this.watchService.getWatchesByIdOrder(pendingOrder.id).subscribe(watches => {
-          this.watches = watches;
-          this.loadCards();
-
+        // this.loadCards();
+        console.log(pendingOrder);
+        console.log(this.orderItems);
+        this.orderItemService.getByIdOrder(pendingOrder.id).subscribe(watches => {
+          this.cards.set(watches);
         });
       } else {
         this.orderItems = [];
-        this.watches = [];
       }
     });
+
   }
 
-  loadCards() {
-    const cards = this.orderItems
-      .filter(watch => watch.idWatch?.imagePerfil) // Safely check existence
-      .map(watch => ({
-        idOrderItem: watch.id,
-        idWatch: watch.idWatch?.id,
-        nameImage: watch.idWatch?.imagePerfil?.name,
-        name: watch.idWatch?.name,
-        price: watch.idWatch?.price,
-        quantity: watch.quantity
-      }));
-    this.cards.set(cards);
-  }
+
+  // loadCards() {
+  //   const cards = this.orderItems
+  //     .filter(watch => watch.idWatch.imagePerfil)
+  //     .map(watch => ({
+  //       idOrderItem: watch.id,
+  //       idWatch: watch.idWatch.id,
+  //       nameImage: watch.idWatch.imagePerfil.name,
+  //       name: watch.idWatch.name,
+  //       price: watch.idWatch.price,
+  //       quantity: watch.quantity
+  //     }));
+  //   this.cards.set(cards);
+  // }
 
 
   getAddress() {
@@ -207,5 +239,5 @@ export class ClientCarrinhoComponent implements OnInit {
   }
 
 
-
+  protected readonly console = console;
 }

@@ -47,4 +47,17 @@ img {
 .link:hover {
   color: #0073e6;
 }
-
+.search-field {
+  width: 40%;
+  height: 80%;
+  min-width: 300px;
+  align-items: center;
+  background: white;
+  border-radius: 5px;
+  border: #0A0B0D;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

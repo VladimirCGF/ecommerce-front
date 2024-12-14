@@ -36,6 +36,7 @@ export class WatchFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.id = this.route.snapshot.paramMap.get("id") || '';
     this.watchForm = this.fb.group({
       id: [null],
@@ -79,13 +80,14 @@ export class WatchFormComponent implements OnInit {
   }
 
   private createWatch(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Criando novo relógio');
     if (this.watchForm.valid) {
-      this.watchService.insertWatch(this.watchForm.value).subscribe(response => {
+      this.watchService.insertWatch(token, this.watchForm.value).subscribe(response => {
         if (this.selectedFile && this.watchForm.valid) {
           console.log(response)
           console.log('Dados enviados:', response.id, this.selectedFile.name, this.selectedFile);
-          this.watchService.uploadImage(response.id, this.selectedFile.name, this.selectedFile)
+          this.watchService.uploadImage(token, response.id, this.selectedFile.name, this.selectedFile)
             .subscribe({
               next: (response) => {
                 this.router.navigate(['/admin/watches']);
@@ -108,9 +110,10 @@ export class WatchFormComponent implements OnInit {
   }
 
   private updateWatch(): void {
+    const token = this.localStorage.getItem('jwt_token');
     console.log('Atualizando relógio');
     if (this.watchForm.valid && this.id) {
-      this.watchService.updateWatch(this.id, this.watchForm.value).subscribe(response => {
+      this.watchService.updateWatch(token, this.id, this.watchForm.value).subscribe(response => {
         console.log('Relógio atualizado com sucesso:', response);
         this.router.navigate(['/admin/watches']);
       }, error => {

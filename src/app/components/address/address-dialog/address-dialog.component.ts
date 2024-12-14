@@ -54,11 +54,12 @@ export class AddressDialogComponent implements OnInit {
     private municipalityService: MunicipalityService,
     private localStorage: LocalStorageService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
+    const token = this.localStorage.getItem('jwt_token');
     this.getClient();
     this.addressForm = this.fb.group({
       id: [null],

@@ -7,8 +7,6 @@ import {WatchListComponent} from "./components/watch/watch-list/watch-list.compo
 import {WatchFormComponent} from "./components/watch/watch-form/watch-form.component";
 import {CouponListComponent} from "./components/coupon/coupon-list/coupon-list.component";
 import {CouponFormComponent} from "./components/coupon/coupon-form/coupon-form.component";
-import {StockListComponent} from "./components/stock/stock-list/stock-list.component";
-import {StockFormComponent} from "./components/stock/stock-form/stock-form.component";
 import {ClientListComponent} from "./components/client/client-list/client-list.component";
 import {ClientFormComponent} from "./components/client/client-form/client-form.component";
 import {AddressListComponent} from "./components/address/address-list/address-list.component";
@@ -43,7 +41,8 @@ export const routes: Routes = [
   {
     path: 'login',
     children: [
-      { path: '', component: LoginComponent
+      {
+        path: '', component: LoginComponent
       },
       {
         path: 'createClient', component: ClientCreateComponent
@@ -56,9 +55,6 @@ export const routes: Routes = [
     title: 'e-commerce',
     children: [
       {
-        path: '', pathMatch: 'full', redirectTo: 'ecommerce'
-      },
-      {
         path: 'ecommerce', component: WatchCardListComponent, title: 'Lista de Cards de Watch'
       },
       {
@@ -70,9 +66,9 @@ export const routes: Routes = [
       {
         path: 'minha-conta',
         children: [
-          { path: '', component: ClientMinhaContaComponent },
-          { path: 'meus-dados', component: ClientMeusDadosComponent },
-          { path: 'meus-pedidos', component: ClientMeusPedidosComponent }
+          {path: '', component: ClientMinhaContaComponent},
+          {path: 'meus-dados', component: ClientMeusDadosComponent},
+          {path: 'meus-pedidos', component: ClientMeusPedidosComponent}
         ]
       },
       {
@@ -91,6 +87,9 @@ export const routes: Routes = [
     component: AdminTemplateComponent,
     title: 'Administração',
     children: [
+      {
+        path: 'pagamento', component: ClientPagamentoComponent
+      },
       {
         path: '', pathMatch: 'full', redirectTo: 'states',
       },
@@ -132,15 +131,6 @@ export const routes: Routes = [
       },
       {
         path: 'coupon/update/:id', component: CouponFormComponent,
-      },
-      {
-        path: 'stock', component: StockListComponent, title: 'Controle de Stock',
-      },
-      {
-        path: 'stock/create', component: StockFormComponent, title: 'Controle de Stock',
-      },
-      {
-        path: 'stock/update/:id', component: StockFormComponent, title: 'Controle de Stock',
       },
       {
         path: 'client', component: ClientListComponent, title: 'Controle de Client',

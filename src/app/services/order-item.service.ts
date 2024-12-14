@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
 import {OrderItem} from "../models/order-item.model";
+import {OrderList} from "../models/order-list.model";
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,10 @@ export class OrderItemService {
   getOrderItemById(token: string, id: string): Observable<OrderItem> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<OrderItem>(`${this.baseUrl}/orderItem/${id}`, {headers});
+  }
+
+  getByIdOrder(idOrder: number): Observable<OrderList[]> {
+    return this.http.get<OrderList[]>(`${this.baseUrl}/orderItem/by-order/${idOrder}`);
   }
 
   addQuantity(id: number, quantity: number): Observable<void> {
